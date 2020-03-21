@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>初识 Spring 框架 | KobeDuu</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://kobeduu.github.io/favicon.ico?v=1584790926387">
+<link rel="stylesheet" href="https://kobeduu.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="1. Spring 简介
+
+Spring 是一个轻量级的控制反转（IoC）和面向切面（AOP）的容器框架，使用基本的 JavaBean 代替 EJB，并提供了更多的企业应用功能，目的是解决企业应用开发的复杂性
+
+
+容器：管理对象的配置和生命..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://kobeduu.github.io">
+        <img src="https://kobeduu.github.io/images/avatar.png?v=1584790926387" class="site-logo">
+        <h1 class="site-title">KobeDuu</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://kobeduu.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">初识 Spring 框架</h2>
+            <div class="post-date">2020-03-21</div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="1-spring-简介">1. Spring 简介</h2>
+<blockquote>
+<p><strong>Spring 是一个轻量级的控制反转（<abbr title="Inversion of Control">IoC</abbr>）和面向切面（<abbr title="Aspect Oriented Programming">AOP</abbr>）的容器框架，使用基本的 JavaBean 代替 EJB，并提供了更多的企业应用功能，目的是解决企业应用开发的复杂性</strong></p>
+</blockquote>
+<ul>
+<li><strong>容器</strong>：管理对象的配置和生命周期<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></li>
+<li><strong>框架</strong>：将简单的组件配置、组合成为复杂的应用</li>
+<li><strong>轻量级</strong>：Spring 框架的大小及其所需的处理开销都很小</li>
+<li><strong>控制反转</strong>：指将对象的创建管理权交给 Spring 容器，不再通过 new 的方式去创建</li>
+<li><strong>面向切面</strong>：指将动态的代码切入到类的制定方法，指定位置的编程思想，利用 <abbr title="Aspect Oriented Programming">AOP</abbr> 可以对业务解耦，提高重用性，提升开发效率！</li>
+</ul>
+<h2 id="2-spring-的优点">2. Spring 的优点</h2>
+<ol>
+<li>支持 <abbr title="Aspect Oriented Programming">AOP</abbr></li>
+<li>非侵入式设计</li>
+<li>方便程序测试</li>
+<li>方便解耦、简化开发</li>
+<li>支持声明式事务处理</li>
+<li>方便集成各种优秀框架</li>
+<li>降低 Java EE API 的使用难度</li>
+</ol>
+<h2 id="3-spring-的核心容器">3. Spring 的核心容器</h2>
+<ul>
+<li><strong>BeanFactory</strong>：负责配置、创建、管理 Bean<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>，是 Spring 容器最基本的接口；当从容器中拿 Bean 时才会去实例化 Bean，使得启动时占用资源少</li>
+<li><strong>ApplicationContext</strong>：是 BeanFactory 的子接口，不仅包含了BeanFactory 的所有功能，还添加了对国际化、资源访问、事件传播等方面的支持；启动时就实例化所有的 Bean，从容器中拿 Bean 时不再实例化，系统运行速度更快；还可以为 Bean 配置【lazy-init = true】属性实现延迟实例化</li>
+</ul>
+<h2 id="4-spring-的依赖注入">4. Spring 的依赖注入</h2>
+<ul>
+<li><strong>依赖注入（<abbr title="Dependency Injection">DI</abbr>）</strong>：Spring 容器负责将被依赖对象赋值给调用者的成员变量，相当于为调用者注入了它依赖对象的实例，目的是实现类的解耦。</li>
+<li><strong>实现方式</strong>：（1）基于构造函数（2）基于设置函数（3）基于自动装配（4）基于注解</li>
+</ul>
+<h2 id="5-控制反转和依赖注入的关系">5. 控制反转和依赖注入的关系</h2>
+<ul>
+<li>如果一个类 A 的功能实现需要借助于类 B，那么就称类 B 是类 A 的依赖，如果在类 A 的内部去实例化类 B，那么两者之间会出现较高的耦合，一旦类 B 出现了问题，类 A 也需要进行改造，如果这样的情况较多，每个类之间都有很多依赖，那么就会出现牵一发而动全身的情况，程序会极难维护，并且很容易出现问题。要解决这个问题，就要把 A 类对 B 类的控制权抽离出来，交给一个第三方去做，把控制权反转给第三方，就称作控制反转</li>
+<li>控制反转是一种思想，是能够解决问题的一种可能的结果，而依赖注入就是其最典型的实现方法。由第三方（<abbr title="Inversion of Control">IoC</abbr> 容器）来控制依赖，把他通过构造函数、属性或者工厂模式等方法，注入到类 A 内，这样就极大程度的对类 A 和类 B 进行了解耦</li>
+</ul>
+<h2 id="参考">参考：</h2>
+<ul>
+<li>[1] <a href="https://baike.baidu.com/item/spring%E6%A1%86%E6%9E%B6/2853288?fr=aladdin">百度百科.Spring框架</a></li>
+<li>[2] <a href="https://zhuanlan.zhihu.com/p/33492169">胡小国.浅谈控制反转与依赖注入[知乎]</a></li>
+</ul>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>创建、装配、销毁 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>Bean 的本质就是 Java 中的类，而 Spring 中的 Bean 其实就是对实体类的引用，来生产 Java 类对象 <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://kobeduu.github.io/post/hello-gridea/">
+                  <h3 class="post-title">
+                    Hello Gridea
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>
