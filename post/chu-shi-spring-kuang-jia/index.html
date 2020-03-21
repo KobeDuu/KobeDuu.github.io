@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://kobeduu.github.io/favicon.ico?v=1584791705605">
+<link rel="shortcut icon" href="https://kobeduu.github.io/favicon.ico?v=1584793154182">
 <link rel="stylesheet" href="https://kobeduu.github.io/styles/main.css">
 
 
@@ -33,7 +33,7 @@ Spring 是一个轻量级的控制反转（IoC）和面向切面（AOP）的容�
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://kobeduu.github.io">
-        <img src="https://kobeduu.github.io/images/avatar.png?v=1584791705605" class="site-logo">
+        <img src="https://kobeduu.github.io/images/avatar.png?v=1584793154182" class="site-logo">
         <h1 class="site-title">KobeDuu</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -114,15 +114,14 @@ Spring 是一个轻量级的控制反转（IoC）和面向切面（AOP）的容�
 <li><strong>面向切面</strong>：指将动态的代码切入到类的制定方法，指定位置的编程思想，利用 <abbr title="Aspect Oriented Programming">AOP</abbr> 可以对业务解耦，提高重用性，提升开发效率！</li>
 </ul>
 <h2 id="二-spring-的优点">二. Spring 的优点</h2>
-<ol>
-<li>支持 <abbr title="Aspect Oriented Programming">AOP</abbr></li>
-<li>非侵入式设计</li>
-<li>方便程序测试</li>
-<li>方便解耦、简化开发</li>
-<li>支持声明式事务处理</li>
-<li>方便集成各种优秀框架</li>
-<li>降低 Java EE API 的使用难度</li>
-</ol>
+<pre><code>（1）支持 AOP
+（2）非侵入式设计
+（3）方便程序测试
+（4）方便解耦、简化开发
+（5）支持声明式事务处理
+（6）方便集成各种优秀框架
+（7）降低 Java EE API 的使用难度
+</code></pre>
 <h2 id="三-spring-的核心容器">三. Spring 的核心容器</h2>
 <ul>
 <li>
@@ -138,7 +137,11 @@ Spring 是一个轻量级的控制反转（IoC）和面向切面（AOP）的容�
 <p><strong>依赖注入（<abbr title="Dependency Injection">DI</abbr>）</strong>：Spring 容器负责将被依赖对象赋值给调用者的成员变量，相当于为调用者注入了它依赖对象的实例，目的是实现类的解耦。</p>
 </li>
 <li>
-<p><strong>实现方式</strong>：（1）基于构造函数（2）基于设置函数（3）基于自动装配（4）基于注解</p>
+<p><strong>实现方式</strong>：<br>
+（1）基于注解<br>
+（2）基于设置函数<br>
+（3）基于自动装配<br>
+（4）基于构造函数</p>
 </li>
 </ul>
 <h2 id="五-控制反转和依赖注入的关系">五. 控制反转和依赖注入的关系</h2>
