@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://kobeduu.github.io</id>
     <title>KobeDuu</title>
-    <updated>2020-03-21T16:04:04.646Z</updated>
+    <updated>2020-03-23T14:00:51.416Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://kobeduu.github.io"/>
     <link rel="self" href="https://kobeduu.github.io/atom.xml"/>
@@ -16,6 +16,24 @@
         <link href="https://kobeduu.github.io/post/chu-shi-spring-kuang-jia/">
         </link>
         <updated>2020-03-21T07:36:26.000Z</updated>
+        <summary type="html"><![CDATA[<ul>
+<li>
+<p><strong>Life is not a matter of holding good cards, but sometimes, playing a poor hand well.</strong></p>
+</li>
+<li>
+<p><strong>生命并非在于抓了一把好牌，而往往是把烂牌打好。</strong></p>
+</li>
+</ul>
+]]></summary>
+        <content type="html"><![CDATA[<ul>
+<li>
+<p><strong>Life is not a matter of holding good cards, but sometimes, playing a poor hand well.</strong></p>
+</li>
+<li>
+<p><strong>生命并非在于抓了一把好牌，而往往是把烂牌打好。</strong></p>
+</li>
+</ul>
+]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
