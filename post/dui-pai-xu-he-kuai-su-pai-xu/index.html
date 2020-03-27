@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://kobeduu.github.io/favicon.ico?v=1585275208614">
+<link rel="shortcut icon" href="https://kobeduu.github.io/favicon.ico?v=1585278393912">
 <link rel="stylesheet" href="https://kobeduu.github.io/styles/main.css">
 
 
@@ -42,7 +42,7 @@ If you do not think about your future, you cannot have it.
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://kobeduu.github.io">
-        <img src="https://kobeduu.github.io/images/avatar.png?v=1585275208614" class="site-logo">
+        <img src="https://kobeduu.github.io/images/avatar.png?v=1585278393912" class="site-logo">
         <h1 class="site-title">KobeDuu</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -345,6 +345,21 @@ var app = new Vue({
     hljs.initHighlightingOnLoad()
   </script>
 
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+<script>
+    renderMathInElement(document.body,
+   {
+              delimiters: [
+                  {left: "$$", right: "$$", display: true},
+                  {left: "$", right: "$", display: false}
+              ]
+          }
+  );
+</script>
 
 
 
