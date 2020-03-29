@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://kobeduu.github.io/favicon.ico?v=1585479988279">
+<link rel="shortcut icon" href="https://kobeduu.github.io/favicon.ico?v=1585481320503">
 <link rel="stylesheet" href="https://kobeduu.github.io/styles/main.css">
 
 
@@ -42,7 +42,7 @@ If you do not think about your future, you cannot have it.
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://kobeduu.github.io">
-        <img src="https://kobeduu.github.io/images/avatar.png?v=1585479988279" class="site-logo">
+        <img src="https://kobeduu.github.io/images/avatar.png?v=1585481320503" class="site-logo">
         <h1 class="site-title">KobeDuu</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -265,7 +265,7 @@ if __name__ == '__main__':
 <ul>
 <li>
 <p><strong>相同点</strong></p>
-<p>快速排序和堆排序都是不稳定性[^2]的排序</p>
+<p>快速排序和堆排序都是不稳定性<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>的排序</p>
 </li>
 <li>
 <p><strong>差异点</strong></p>
@@ -273,11 +273,9 @@ if __name__ == '__main__':
 </li>
 </ul>
 <p>  （1）堆排序的比较次数更多，指令开销更大<br>
-  （2）cache[^1] 机制：读取一个单位的数据之后，其周围附件的内存地址中的数据很有可能被访问，于是就会被放到 cache 中，以提高数据读取的速率。显然，堆排序对 cache 机制不够友好</p>
+  （2）cache<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup> 机制：读取一个单位的数据之后，其周围附件的内存地址中的数据很有可能被访问，于是就会被放到 cache 中，以提高数据读取的速率。显然，堆排序对 cache 机制不够友好</p>
 <h2 id="四-结语"><strong>四. 结语</strong></h2>
 <p>  工业库中的排序方法大都是混合排序，c++ 中 sort() 是快速排序、堆排序和插排序的结合，根据不同的数据规模选择适宜的方法；python 则是结合了合并排序和插入排序</p>
-<p><sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>: 高速缓冲存储器，是位于 CPU 和主存储器之间<br>
-<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>: 两个关键字相同的元素在排序后其相对位置发生改变</p>
 <h2 id="参考资料">参考资料</h2>
 <ul>
 <li>[1] <a href="https://baike.baidu.com/item/%E5%A0%86%E6%8E%92%E5%BA%8F/2840151?fr=aladdin">百度百科.堆排序</a></li>
@@ -286,9 +284,9 @@ if __name__ == '__main__':
 <hr class="footnotes-sep">
 <section class="footnotes">
 <ol class="footnotes-list">
-<li id="fn1" class="footnote-item"><p>1 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+<li id="fn1" class="footnote-item"><p>两个关键字相同的元素在排序后其相对位置发生改变 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
 </li>
-<li id="fn2" class="footnote-item"><p>2 <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+<li id="fn2" class="footnote-item"><p>高速缓冲存储器，是位于 CPU 和主存储器之间 <a href="#fnref2" class="footnote-backref">↩︎</a></p>
 </li>
 </ol>
 </section>
