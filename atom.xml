@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://kobeduu.github.io</id>
     <title>KobeDuu</title>
-    <updated>2020-03-27T05:22:54.033Z</updated>
+    <updated>2020-03-29T11:06:31.190Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://kobeduu.github.io"/>
     <link rel="self" href="https://kobeduu.github.io/atom.xml"/>
@@ -10,6 +10,31 @@
     <logo>https://kobeduu.github.io/images/avatar.png</logo>
     <icon>https://kobeduu.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, KobeDuu</rights>
+    <entry>
+        <title type="html"><![CDATA[Spring 中的 Bean]]></title>
+        <id>https://kobeduu.github.io/post/spring-zhong-de-bean/</id>
+        <link href="https://kobeduu.github.io/post/spring-zhong-de-bean/">
+        </link>
+        <updated>2020-03-29T10:05:37.000Z</updated>
+        <summary type="html"><![CDATA[<ul>
+<li>
+<p>I love three things in this world.Sun, moon and you.</p>
+</li>
+<li>
+<p>Sun for morning, moon for night,and you forever.</p>
+</li>
+</ul>
+]]></summary>
+        <content type="html"><![CDATA[<ul>
+<li>
+<p>I love three things in this world.Sun, moon and you.</p>
+</li>
+<li>
+<p>Sun for morning, moon for night,and you forever.</p>
+</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[堆排序和快速排序]]></title>
         <id>https://kobeduu.github.io/post/dui-pai-xu-he-kuai-su-pai-xu/</id>

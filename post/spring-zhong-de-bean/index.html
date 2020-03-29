@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Spring 中的 Bean | KobeDuu</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://kobeduu.github.io/favicon.ico?v=1585479988279">
+<link rel="stylesheet" href="https://kobeduu.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="
+
+I love three things in this world.Sun, moon and you.
+
+
+Sun for morning, moon for night,and you forever.
+
+
+
+一. 概念
+
+Bean..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://kobeduu.github.io">
+        <img src="https://kobeduu.github.io/images/avatar.png?v=1585479988279" class="site-logo">
+        <h1 class="site-title">KobeDuu</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://kobeduu.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Spring 中的 Bean</h2>
+            <div class="post-date">2020-03-29</div>
+            
+              <div class="feature-container" style="background-image: url('https://cdn-usa.skypixel.com/uploads/usa_files/photo/image/9a6fc066-6dc1-4721-92d3-ab84f76d4377.jpg@!1920')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <ul>
+<li>
+<p>I love three things in this world.Sun, moon and you.</p>
+</li>
+<li>
+<p>Sun for morning, moon for night,and you forever.</p>
+</li>
+</ul>
+<!-- more -->
+<h2 id="一-概念">一. 概念</h2>
+<blockquote>
+<p><strong>Bean 的本质就是 Java 中的类，而 Spring 中的 Bean 其实就是对实体类的引用，由 Spring 中的 IoC 容器实例化，组装和管理</strong></p>
+</blockquote>
+<h2 id="二-bean-的配置">二. Bean 的配置</h2>
+<p>Spring 容器支持 Properties 文件和 XML 文件格式的配置方式，实际开发中，XML 文件的配置方式最常使用，其中 &lt; bean &gt; 元素的基本属性有：</p>
+<ul>
+<li><strong>id</strong><br>
+Bean 的唯一标识符，Spring 容器通过该属性来配置和管理 Bean</li>
+<li><strong>name</strong><br>
+Spring 容器也可以通过该属性来配置和管理 Bean，可以有多个名称，每个名称通过逗号或分号隔开</li>
+<li><strong>class</strong><br>
+该属性指定了 Bean 的具体实现类，它的值必须是一个完整的类名，如果未指定 id 和 name，Spring 会将 class 值当作 id 使用</li>
+<li><strong>scope</strong><br>
+设定 Bean 的作用域</li>
+</ul>
+<h2 id="三-bean-的作用域">三. Bean 的作用域</h2>
+<p>Bean 的作用域有 7 种，分别为 singleton，ptototype，request，session，globalSession，application，websocket，常用作用域有：</p>
+<ul>
+<li><strong>singleton</strong><br>
+Spring 默认的作用域，使用其定义的 Bean 只有一个实例，无论多少个 Bean 引用它，始终指向同一对象，对于无会话状态的 Bean（如 Dao 组件、Service 组件）来说，是最理想的选择<br>
+此作用域下，Spring 能够精确的知道 Bean 何时被创建，何时初始化完成，以及何时被销毁</li>
+<li><strong>ptototype</strong><br>
+通过 Spring 容器获取其定义的 Bean 时，容器都会新创建一个 Bean 实例<br>
+此作用域下，Spring 容器创建 Bean 的实例后，将不再跟踪其生命周期</li>
+</ul>
+<h2 id="四-bean-的生命周期">四. Bean 的生命周期</h2>
+<figure data-type="image" tabindex="1"><img src="https://kobeduu.github.io/post-images/1585476687609.png" alt="Bean 的生命周期流程" loading="lazy"></figure>
+<ul>
+<li><strong>实例化 Bean</strong><br>
+Spring 实例化 Bean，相当于 new 一个对象</li>
+<li><strong>设置对象属性</strong><br>
+Spring 通过 setter 方法将值和 Bean 的引用注入到 Bean 的属性中</li>
+<li><strong>注入 Aware 接口</strong><br>
+Spring 检测该对象是否实现了xxxAware 接口，并将对应的 xxxAware 实例注入给 Bean，Aware 类型的接口的作用是让我们能够拿到 Spring 容器中的一些资源</li>
+<li><strong>BeanPostProcessor</strong><br>
+如果想要对象在被使用前进行一些自定义的处理，可以通过实现BeanPostProcessor 接口来完成，有初始化之前和初始化之后两种方法</li>
+<li><strong>初始化阶段</strong><br>
+通过 InitializingBean 接口或配置 Bean 的 init-method 属性来实现</li>
+<li><strong>销毁阶段</strong><br>
+通过 DisposableBean 接口或配置 Bean 的 destroy-method 属性来实现</li>
+</ul>
+<h2 id="五-bean-的实例化">五. Bean 的实例化</h2>
+<ul>
+<li><strong>静态工厂实例化</strong><br>
+通过调用工厂类的静态方法直接实例化 Bean</li>
+<li><strong>实例工厂实例化</strong><br>
+先实例化工厂，再通过工厂里的方法实例化 Bean</li>
+<li><strong>构造器实例化（常用）</strong></li>
+</ul>
+<hr>
+<p>BeanConfig.xml：</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd&quot;&gt;
+        
+        &lt;!--将指定的类 Bean 配置给 Spring，让 Spring 通过其无参构造方法创建其对象的实例--&gt;
+        &lt;bean id = &quot;bean&quot; class = &quot;InstantiantBean.Bean&quot;&gt; &lt;/bean&gt;
+&lt;/beans&gt;
+&lt;/beans&gt;
+</code></pre>
+<p>Bean 类：</p>
+<pre><code class="language-java">package InstantiantBean;
+
+public class Bean {
+	public void say() {
+		System.out.print(&quot;Hello World!!!&quot;);
+	}
+}
+
+</code></pre>
+<p>TestBean 类：</p>
+<pre><code class="language-java">package InstantiantBean;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class TestBean {
+
+	public static void main(String[] args) {
+		// 1. 初始化 Spring 容器，加载配置文件
+		ApplicationContext applicationContext = new ClassPathXmlApplicationContext(&quot;BeanConfig.xml&quot;);
+		// 2. 通过容器获得 userDao 的实例
+	    Bean bean = (Bean)applicationContext.getBean(&quot;bean&quot;);
+	    // 3. 调用实例方法
+		bean.say();
+	}
+}
+
+</code></pre>
+<h2 id="六-bean-的装配方式">六. Bean 的装配方式</h2>
+<blockquote>
+<p><strong>依赖注入的本质就是装配，装配是依赖注入的具体行为</strong></p>
+</blockquote>
+<ul>
+<li><strong>基于 XML 的装配</strong><br>
+设值注入：Bean 类必须有一个无参构造方法，必须为属性提供 setter 方法，在配置文件中使用 &lt; property &gt; 来为每个属性注入值<br>
+构造注入：Bean 类必须提供有参构造方法，在配置文件中使用 &lt; constructor-arg &gt; 为每个参数注入值</li>
+<li><strong>自动装配</strong><br>
+通过设置 &lt; bean &gt; 中 autowire 的属性值来自动装配 Bean</li>
+<li><strong>基于注解的装配（常用）</strong><br>
+@Component：用于描述 Spring 中的 Bean，它是一个泛化的概念，仅仅表示一个组件<br>
+@Repository：将数据访问层（DAO）的类标识为 Spring 中的 Bean<br>
+@Service：将业务层（Service）的类标识为 Spring 中的 Bean<br>
+@Controller：将控制层（Controller）的类标识为 Spring 中的 Bean<br>
+@Autowired：对 Bean 的属性变量、属性的 setter 方法及构造方法进行标注，配合对应的注解处理器完成 Bean 的自动配置工作<br>
+@Resource：其作用与 Autowired 一样。它有两个重要属性：name 和  type，name 为 Bean 的实例名称，type 为 Bean 的实例类型<br>
+@Qualifier：与 @Autowired 注解配合使用，会将默认的按 Bean 类型装配修改为按 Bean 的实例名称装配，Bean 的实例名称由 @Qualifier 注解的参数指定</li>
+</ul>
+<hr>
+<p>UserDao 类</p>
+<pre><code class="language-java">package Annotation;
+
+import org.springframework.stereotype.Repository;
+
+@Repository(&quot;userDao&quot;)
+public class UserDao {
+	public void say() {
+		System.out.println(&quot;userDao say ......&quot;);
+	}
+}
+
+</code></pre>
+<p>UserService 类</p>
+<pre><code class="language-java">package Annotation;
+
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+
+@Repository(&quot;userService&quot;)
+public class UserService {
+	//@Resource(name = &quot;userDao&quot;)
+	@Autowired                     //两种方式等价
+	private UserDao userDao;
+	public void say() {
+		this.userDao.say();
+		System.out.println(&quot;userService say ......&quot;);
+	}
+}
+
+</code></pre>
+<p>AnnotationConfig.xml</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+    xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.3.xsd&quot;&gt;
+        &lt;!-- 第一种方法 --&gt;
+        &lt;!--使用 context 命名空间，在配置文件中开启相应的注解处理器--&gt;
+        &lt;!-- &lt;context:annotation-config /&gt; --&gt;
+        &lt;!--分别定义 Bean 的实例--&gt;
+        &lt;!-- &lt;bean id=&quot;userDao&quot; class=&quot;Annotation.UserDao&quot;&gt;&lt;/bean&gt;
+        &lt;bean id=&quot;userService&quot; class=&quot;Annotation.UserService&quot;&gt;&lt;/bean&gt; --&gt;
+        
+        &lt;!-- 第二种方法  --&gt;
+        &lt;!--使用 context 命名空间,通知 Spring 扫描指定包内所有的 Bean 类,进行注解解析 --&gt;
+        &lt;context:component-scan base-package=&quot;Annotation&quot; /&gt;
+        
+&lt;/beans&gt;
+</code></pre>
+<p>AnnotationTest 类</p>
+<pre><code class="language-java">package Annotation;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class AnnotationTest {
+	public static void main(String[] args) {
+		String xmlpath = &quot;Annotation/AnnotationConfig.xml&quot;;
+		ApplicationContext applicationContext = new ClassPathXmlApplicationContext(xmlpath);
+		UserService userService = (UserService)applicationContext.getBean(&quot;userService&quot;);
+		userService.say();
+	}
+}
+
+</code></pre>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li>[1] <a href="https://www.jianshu.com/p/632caedd643e">浅谈依赖注入与装配 [简书]</a></li>
+<li>[2] <a href="https://www.zhihu.com/question/38597960">Spring 中 Bean 的生命周期是怎样的？[知乎]</a></li>
+</ul>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://kobeduu.github.io/post/dui-pai-xu-he-kuai-su-pai-xu/">
+                  <h3 class="post-title">
+                    堆排序和快速排序
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+<script>
+    renderMathInElement(document.body,
+   {
+              delimiters: [
+                  {left: "$$", right: "$$", display: true},
+                  {left: "$", right: "$", display: false}
+              ]
+          }
+  );
+</script>
+
+
+
+
+  </body>
+</html>
