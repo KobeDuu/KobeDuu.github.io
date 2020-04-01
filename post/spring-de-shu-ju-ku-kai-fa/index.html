@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Spring 的数据库开发 | KobeDuu</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://kobeduu.github.io/favicon.ico?v=1585750788742">
+<link rel="stylesheet" href="https://kobeduu.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="一. Spring 的JDBC模块
+
+Spring 的JDBC模块负责数据库资源管理和错误处理，大大简化了开发人员对数据库的操作
+
+Spring JDBC模块主要由4个包组成：
+
+core（核心包）
+包含了 JDBC 的核心功能，包含 Jd..." />
+    <meta name="keywords" content="Spring学习笔记" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://kobeduu.github.io">
+        <img src="https://kobeduu.github.io/images/avatar.png?v=1585750788742" class="site-logo">
+        <h1 class="site-title">KobeDuu</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://kobeduu.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Spring 的数据库开发</h2>
+            <div class="post-date">2020-04-01</div>
+            
+              <div class="feature-container" style="background-image: url('https://cdn-hz.skypixel.com/uploads/cn_files/photo/image/b6c74152-57cd-4edf-9360-44b0e67afbc3.jpg@!1920')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="一-spring-的jdbc模块">一. Spring 的JDBC模块</h2>
+<blockquote>
+<p><strong>Spring 的JDBC模块负责数据库资源管理和错误处理，大大简化了开发人员对数据库的操作</strong></p>
+</blockquote>
+<p>Spring JDBC模块主要由4个包组成：</p>
+<ul>
+<li><strong>core（核心包）</strong><br>
+包含了 JDBC 的核心功能，包含 JdbcTemplate 类</li>
+<li><strong>object（对象包）</strong><br>
+以面向对象的方式访问数据库，允许执行查询并将返回结果作为业务对象，可以在数据表的列与业务对象的属性之间映射查询结果</li>
+<li><strong>support（支持包）</strong><br>
+包含了 core 和 object 包的支持类，例如提供异常转换功能的 SQLException 类</li>
+<li><strong>dataSource（数据源包）</strong><br>
+访问数据源的实用工具类，配置中有 4 个属性：<br>
+<strong>url：</strong> 数据源所在地址<br>
+<strong>username：</strong> 访问数据库的用户名<br>
+<strong>password：</strong> 访问数据库的密码<br>
+<strong>driverClassName：</strong> 使用的驱动名称，对应驱动 JAR 包中的 Driver 类</li>
+</ul>
+<h2 id="二-spring-中jdbc的配置">二. Spring 中JDBC的配置</h2>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd&quot;&gt;
+        
+        &lt;!--1. 配置数据源--&gt;
+        &lt;bean id=&quot;dataSource&quot; class=&quot;org.springframework.jdbc.datasource.DriverManagerDataSource&quot;&gt;
+	        &lt;!--数据库驱动--&gt;
+	        &lt;property name=&quot;driverClassName&quot; value=&quot;com.mysql.jdbc.Driver&quot;&gt;&lt;/property&gt;
+	        &lt;!--连接数据库的url--&gt;
+	        &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/spring?useUnicode=true&amp;amp;characterEncoding=utf8&quot;&gt;&lt;/property&gt;
+	        &lt;!--连接数据库的用户名--&gt;
+	        &lt;property name=&quot;username&quot; value=&quot;root&quot;&gt;&lt;/property&gt;
+	        &lt;!--连接数据库的密码 --&gt;
+	        &lt;property name=&quot;password&quot; value=&quot;123456&quot;&gt;&lt;/property&gt;  
+        &lt;/bean&gt;     
+         
+        &lt;!--2. 配置JDBC模板--&gt;
+        &lt;bean id=&quot;jdbcTemplate&quot; class=&quot;org.springframework.jdbc.core.JdbcTemplate&quot;&gt;
+            &lt;!--默认必须使用数据源--&gt;
+        	&lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&gt;&lt;/property&gt;
+        &lt;/bean&gt;
+&lt;/beans&gt;
+</code></pre>
+<h2 id="三-jdbctemplate-的常用方法">三. JdbcTemplate 的常用方法</h2>
+<ul>
+<li><strong>execute()</strong><br>
+execute() 方法用于执行 sql 语句</li>
+<li><strong>update()</strong><br>
+int update(String sql)：用于直接执行插入、更新和删除操作的 sql 语句，并返回受影响的行数<br>
+int update(String sql,Object...args)：该方法使用 Object... 设置 sql 语句中的参数，要求参数不能为空，并返回受影响的行数</li>
+<li><strong>query()</strong><br>
+List query(String sql,RowMapper rowMapper)：执行 sql 语句，并通过 RowMapper<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup> 返回一个 List 类型的结果<br>
+queryForObject(String sql,RowMapper rowMapper,Object...args)：将 args 参数绑定到 sql 语句中，并通过 RowMapper 返回一个Object 类型的单行记录</li>
+<li><strong>实例</strong></li>
+</ul>
+<p>applicationContext.xml</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd&quot;&gt;
+        
+        &lt;!--1. 配置数据源--&gt;
+        &lt;bean id=&quot;dataSource&quot; class=&quot;org.springframework.jdbc.datasource.DriverManagerDataSource&quot;&gt;
+	        &lt;!--数据库驱动--&gt;
+	        &lt;property name=&quot;driverClassName&quot; value=&quot;com.mysql.jdbc.Driver&quot;&gt;&lt;/property&gt;
+	        &lt;!--连接数据库的url--&gt;
+	        &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/spring?useUnicode=true&amp;amp;characterEncoding=utf8&quot;&gt;&lt;/property&gt;
+	        &lt;!--连接数据库的用户名--&gt;
+	        &lt;property name=&quot;username&quot; value=&quot;root&quot;&gt;&lt;/property&gt;
+	        &lt;!--连接数据库的密码 --&gt;
+	        &lt;property name=&quot;password&quot; value=&quot;123456&quot;&gt;&lt;/property&gt;  
+        &lt;/bean&gt;     
+         
+        &lt;!--2. 配置JDBC模板--&gt;
+        &lt;bean id=&quot;jdbcTemplate&quot; class=&quot;org.springframework.jdbc.core.JdbcTemplate&quot;&gt;
+            &lt;!--默认必须使用数据源--&gt;
+        	&lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&gt;&lt;/property&gt;
+        &lt;/bean&gt;
+        
+        &lt;!--3. 创建AccountDao的实例--&gt;
+        &lt;bean id=&quot;accountDao&quot; class = &quot;JDBC.AccountDao&quot;&gt;
+            &lt;property name=&quot;jdbcTemplate&quot; ref=&quot;jdbcTemplate&quot;&gt;&lt;/property&gt;
+        &lt;/bean&gt;
+&lt;/beans&gt;
+</code></pre>
+<p>Account.java</p>
+<pre><code class="language-java">package JDBC;
+
+public class Account {
+	private String username;
+	private String password;
+	private double balance;
+	
+	public Account() {}
+	
+    public Account(String username,String password,double balance) {
+    	this.balance = balance;
+    	this.username = username;
+    	this.password = password;
+    }
+	public double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	@Override
+	public String toString() {
+		return &quot;Account [balance=&quot; + balance + &quot;, username=&quot; + username + &quot;, password=&quot; + password + &quot;]&quot;;
+	}
+	
+}
+
+</code></pre>
+<p>AccountDao.java</p>
+<pre><code class="language-java">package JDBC;
+
+import java.util.List;
+
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+
+public class AccountDao {
+
+	private JdbcTemplate jdbcTemplate;
+	
+    //基于XML配置的设值注入的setter()方法
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
+	
+	// 添加账户
+	public int addAcount(Account account) {
+		String sql = &quot;insert into account(username,password,balance) value(?,?,?)&quot;;
+		Object[] params = new Object[] { account.getUsername(), account.getPassword(), account.getBalance() };
+		return this.jdbcTemplate.update(sql, params);
+	}
+
+	// 删除账户
+	public int deleteAcount(Account account) {
+		String sql = &quot;delete from account where username=?&quot;;
+		return this.jdbcTemplate.update(sql, account.getUsername());
+	}
+
+	// 更新账户
+	public int updateAcount(Account account, Account newaccount) {
+		String sql = &quot;update account set username=?,password=?,balance=? where username=?&quot;;
+		Object[] params = new Object[] { newaccount.getUsername(), newaccount.getPassword(), newaccount.getBalance(),
+				account.getUsername() };
+		return this.jdbcTemplate.update(sql, params);
+	}
+	
+	// 根据username查询用户信息
+	public Account findAccountByUsername(String username) {
+		String sql = &quot;select * from account where username=?&quot;;
+		RowMapper&lt;Account&gt; rowMapper = new BeanPropertyRowMapper&lt;Account&gt;(Account.class);
+		return this.jdbcTemplate.queryForObject(sql, rowMapper,username);
+	}
+	
+	// 查询所有用户信息
+	public List&lt;Account&gt; findAllAccount(){
+		String sql = &quot;select * from account&quot;;
+		RowMapper&lt;Account&gt; rowMapper = new BeanPropertyRowMapper&lt;Account&gt;(Account.class);
+		return this.jdbcTemplate.query(sql, rowMapper);
+	}
+}
+
+</code></pre>
+<p>AccountDaoTest.java</p>
+<pre><code class="language-java">package JDBC;
+
+import java.util.List;
+
+import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
+
+public class AccountDaoTest {
+	
+	public static void main(String[] args) {
+		// 创建account表
+		ApplicationContext application = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);
+		JdbcTemplate jdbcTemplate = (JdbcTemplate)application.getBean(&quot;jdbcTemplate&quot;);
+		String sql = &quot;create table account(&quot; + 
+				     &quot;username varchar(50) primary key,&quot; + 
+				     &quot;password varchar(50),&quot; + 
+				     &quot;balance double)&quot;;
+		jdbcTemplate.execute(sql);
+		System.out.println(&quot;account表创建成功&quot;);
+	}
+	
+	/*
+	 * 测试添加功能
+	 */
+    @Test
+    public void addAccountTest() {
+    	ApplicationContext application = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);
+		AccountDao accountDao = (AccountDao) application.getBean(&quot;accountDao&quot;);
+		Account a = new Account(&quot;dzl&quot;,&quot;123456&quot;,100000000.0);
+		int num = accountDao.addAcount(a);
+		if(num &gt; 0) System.out.println(&quot;插入成功&quot;);
+    }
+    
+    /*
+     * 测试删除功能
+     */
+    @Test
+    public void deleteAccountTest() {
+    	ApplicationContext application = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);
+		AccountDao accountDao = (AccountDao) application.getBean(&quot;accountDao&quot;);
+		Account a = new Account(&quot;dzl&quot;,&quot;123456&quot;,100000000.0);
+		int num = accountDao.deleteAcount(a);
+		if(num &gt; 0) System.out.println(&quot;删除成功&quot;);
+    }
+    
+    /*
+     * 测试更新功能
+     */
+    @Test
+    public void updateAccountTest() {
+    	ApplicationContext application = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);
+		AccountDao accountDao = (AccountDao) application.getBean(&quot;accountDao&quot;);
+		Account a = new Account(&quot;dzl&quot;,&quot;123456&quot;,100000000.0);
+		Account b = new Account(&quot;dzl&quot;,&quot;123456&quot;,0.0);
+		int num = accountDao.addAcount(a);
+		int newnum = accountDao.updateAcount(a, b);
+		if(newnum &gt; 0) System.out.println(&quot;更新成功&quot;);
+    }
+    
+    /*
+     *测试根据username查询数据信息 
+     */
+    @Test
+    public void findAccountByUsernameTest() {
+    	ApplicationContext application = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);
+		AccountDao accountDao = (AccountDao) application.getBean(&quot;accountDao&quot;);
+		Account account = accountDao.findAccountByUsername(&quot;dzl&quot;);
+		System.out.println(account.toString());
+    }
+    
+    /*
+     * 测试查询account的全部记录
+     */
+    @Test
+    public void findAllAccountTest() {
+    	ApplicationContext application = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);
+		AccountDao accountDao = (AccountDao) application.getBean(&quot;accountDao&quot;);
+		List&lt;Account&gt; accountList = accountDao.findAllAccount();
+		for(Account account : accountList) {
+			System.out.println(account.toString());
+		}
+    }
+}
+
+</code></pre>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>Sping 中的 RowMapper 可以将查询结果的每一行数据封装成用户定义的类 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://kobeduu.github.io/tag/OCnZQ2U9o/" class="tag">
+                    Spring学习笔记
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://kobeduu.github.io/post/spring-zhong-de-bean/">
+                  <h3 class="post-title">
+                    Spring 中的 Bean
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+<script>
+    renderMathInElement(document.body,
+   {
+              delimiters: [
+                  {left: "$$", right: "$$", display: true},
+                  {left: "$", right: "$", display: false}
+              ]
+          }
+  );
+</script>
+
+
+
+
+  </body>
+</html>
