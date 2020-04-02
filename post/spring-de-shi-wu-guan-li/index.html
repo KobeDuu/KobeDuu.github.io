@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Spring 的事务管理 | KobeDuu</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://kobeduu.github.io/favicon.ico?v=1585833998637">
+<link rel="stylesheet" href="https://kobeduu.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="一. 什么是事务
+
+事务是指操作数据库的一个程序执行单元：这个程序执行单元是不可分割的，要么全部成功，要么全部失败
+
+比如银行转账操作分为两步：转出账户减去转出金额，转入账户加上转入金额；这两个操作的逻辑原则就是要么都成功，要么都失败
+二...." />
+    <meta name="keywords" content="Spring学习笔记" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://kobeduu.github.io">
+        <img src="https://kobeduu.github.io/images/avatar.png?v=1585833998637" class="site-logo">
+        <h1 class="site-title">KobeDuu</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://kobeduu.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Spring 的事务管理</h2>
+            <div class="post-date">2020-04-02</div>
+            
+              <div class="feature-container" style="background-image: url('https://kobeduu.github.io/post-images/spring-de-shi-wu-guan-li.png')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="一-什么是事务">一. 什么是事务</h2>
+<blockquote>
+<p><strong>事务是指操作数据库的一个程序执行单元：这个程序执行单元是不可分割的，要么全部成功，要么全部失败</strong></p>
+</blockquote>
+<p>比如银行转账操作分为两步：转出账户减去转出金额，转入账户加上转入金额；这两个操作的逻辑原则就是要么都成功，要么都失败</p>
+<h2 id="二-事务的特性">二. 事务的特性</h2>
+<ul>
+<li><strong>原子性（Atomicity）</strong><br>
+事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生</li>
+<li><strong>一致性（Consistency）</strong><br>
+事务在完成后数据的完整性必须保持一致</li>
+<li><strong>隔离性（Isolation）</strong><br>
+多个用户并发访问数据库时，一个用户的事务不能被其他用户的事务所干扰，多个并发事务之间的数据要相互隔离</li>
+<li><strong>持久性（Durability）</strong><br>
+一个事务一旦被提交，它对数据库中数据的改变应该是永久性的，即使数据库发生故障也不应该对其有任何影响</li>
+</ul>
+<h2 id="三-事务的属性">三. 事务的属性</h2>
+<ul>
+<li><strong>传播行为</strong><br>
+定义事务的控制范围</li>
+<li><strong>隔离级别</strong><br>
+定义事务在数据库端读写方面的控制范围</li>
+<li><strong>回滚规则</strong><br>
+默认情况下只有未检查异常（RuntimeException和Error类型的异常）会导致事务回滚，配置该属性使得遇到特定异常时强制回滚</li>
+<li><strong>只读属性</strong><br>
+表示这个事务只读取数据，但是不更新数据；配置该属性，可以帮助数据库引擎优化事务</li>
+<li><strong>超时属性</strong><br>
+表示事务在强制回滚之前可以保持多久，避免长期运行的事务占用资源</li>
+</ul>
+<h2 id="四-spring-的事务管理">四. Spring 的事务管理</h2>
+<blockquote>
+<p><strong>事务管理对于企业级应用而言至关重要，它保证了用户的每一次操作都是可靠的，即便出现了异常的情况，也不至于破坏后台数据的完整性</strong></p>
+</blockquote>
+<ul>
+<li><strong>编程式事务管理</strong><br>
+通过编写代码实现的事务管理，包括定义事务的开始、正常执行后的事务提交和异常时的事务回滚</li>
+<li><strong>声明式事务管理（推荐）</strong><br>
+通过 AOP 技术实现的事务管理，主要思想是将事务作为一个“切面”代码单独编写，然后通过 AOP 技术将事务管理的“切面”植入到业务目标类中；只需在配置文件中进行相关的事务规则声明，减少工作量</li>
+</ul>
+<h2 id="五-事务管理的核心接口">五. 事务管理的核心接口</h2>
+<ul>
+<li><strong>TransactionStatus</strong><br>
+事务的状态，它描述了某一时间点上事务的状态信息</li>
+<li><strong>TransactionDefinition</strong><br>
+事务定义（描述）的对象，该对象中定义了 Spring 事务管理的五大属性：隔离级别、传播行为、是否只读、事务超时、回滚规则，并提供了获取事务相关信息的方法</li>
+<li><strong>Platform TransactionManager</strong><br>
+事务管理的接口，不直接管理事务，而是通过这个接口为不同的持久层框架提供了不同的实现类</li>
+</ul>
+<h2 id="六-spring-的声明式事务管理实现">六. Spring 的声明式事务管理实现</h2>
+<ul>
+<li><strong>基于 AspectJ 的 XML 方式</strong></li>
+<li><strong>基于注解的方式（推荐）</strong><br>
+（1）在 Spring 容器中注册事务注解驱动<br>
+（2）在需要事务管理的类或方法上添加 @Transactional 注解，添加在 Bean 类上方则对类中所有的方法有效，添加在方法上仅对该方法有效，注解的常用参数配置：
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>transactionManager</td>
+<td>指定需要使用的事务管理器</td>
+</tr>
+<tr>
+<td>islation</td>
+<td>指定事务的隔离级别，默认为 islation.DEFAULT</td>
+</tr>
+<tr>
+<td>propagation</td>
+<td>指定事务的传播行为，默认为 propagation.REQUIRED</td>
+</tr>
+<tr>
+<td>read-only</td>
+<td>指定事务是否只读，默认为 false</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>指定事务的超时时长</td>
+</tr>
+<tr>
+<td>rollbackFor</td>
+<td>指定遇到特定异常时强制回滚事务</td>
+</tr>
+<tr>
+<td>norollbackFor</td>
+<td>指定遇到特定异常时强制不回滚事务</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><strong>基于注解的实例</strong><br>
+applicationContext.xml</li>
+</ul>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+	xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;
+	xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+	xmlns:tx=&quot;http://www.springframework.org/schema/tx&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.3.xsd&quot;&gt;
+        
+        &lt;!--1. 配置数据源--&gt;
+        &lt;bean id=&quot;dataSource&quot; class=&quot;org.springframework.jdbc.datasource.DriverManagerDataSource&quot;&gt;
+	        &lt;!--数据库驱动--&gt;
+	        &lt;property name=&quot;driverClassName&quot; value=&quot;com.mysql.jdbc.Driver&quot;&gt;&lt;/property&gt;
+	        &lt;!--连接数据库的url--&gt;
+	        &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/spring?useUnicode=true&amp;amp;characterEncoding=utf8&quot;&gt;&lt;/property&gt;
+	        &lt;!--连接数据库的用户名--&gt;
+	        &lt;property name=&quot;username&quot; value=&quot;root&quot;&gt;&lt;/property&gt;
+	        &lt;!--连接数据库的密码 --&gt;
+	        &lt;property name=&quot;password&quot; value=&quot;123456&quot;&gt;&lt;/property&gt;  
+        &lt;/bean&gt;     
+         
+        &lt;!--2. 配置JDBC模板--&gt;
+        &lt;bean id=&quot;jdbcTemplate&quot; class=&quot;org.springframework.jdbc.core.JdbcTemplate&quot;&gt;
+            &lt;!--默认必须使用数据源--&gt;
+        	&lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&gt;&lt;/property&gt;
+        &lt;/bean&gt;
+        
+        &lt;!--3. 创建AccountDao的实例--&gt;
+        &lt;bean id=&quot;accountDao&quot; class = &quot;JDBC.AccountDao&quot;&gt;
+            &lt;property name=&quot;jdbcTemplate&quot; ref=&quot;jdbcTemplate&quot;&gt;&lt;/property&gt;
+        &lt;/bean&gt;
+        
+        &lt;!--4. 事务管理器, 依赖于数据源 --&gt;
+        &lt;bean id=&quot;transactionManager&quot; class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;
+        	&lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&gt;&lt;/property&gt;
+        &lt;/bean&gt;
+        
+        &lt;!--5. 注册事务管理器驱动--&gt;
+        &lt;tx:annotation-driven transaction-manager=&quot;transactionManager&quot;/&gt;
+        
+&lt;/beans&gt;
+</code></pre>
+<p>Account.java</p>
+<pre><code class="language-java">package JDBC;
+
+public class Account {
+	private String username;
+	private String password;
+	private double balance;
+	
+	public Account() {}
+	
+    public Account(String username,String password,double balance) {
+    	this.balance = balance;
+    	this.username = username;
+    	this.password = password;
+    }
+	public double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	@Override
+	public String toString() {
+		return &quot;Account [balance=&quot; + balance + &quot;, username=&quot; + username + &quot;, password=&quot; + password + &quot;]&quot;;
+	}
+	
+}
+
+</code></pre>
+<p>AccountDao.java</p>
+<pre><code class="language-java">package JDBC;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+public class AccountDao {
+
+	private JdbcTemplate jdbcTemplate;
+	
+    //基于XML配置的设值注入的setter()方法
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
+	
+	//转账功能
+	@Transactional(propagation=Propagation.REQUIRED,isolation=Isolation.DEFAULT,readOnly=false)
+	public void transferAccount(Account a,Account b,double money) {
+		String sql = &quot;update account set balance = balance-? where username=?&quot;;
+		Object[] parms1 = new Object[] {money,a.getUsername()};
+		this.jdbcTemplate.update(sql,parms1);
+		
+		//模拟异常
+		int x = 1/0;
+		sql = &quot;update account set balance = balance+? where username=?&quot;;
+		Object[] parms2 = new Object[] {money,b.getUsername()};
+		this.jdbcTemplate.update(sql,parms2);
+	}
+}
+
+</code></pre>
+<p>AccountDaoTest.java</p>
+<pre><code class="language-java">package JDBC;
+
+import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
+
+public class AccountDaoTest {
+	
+	public static void main(String[] args) {
+		// 创建account表
+		ApplicationContext application = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);
+		JdbcTemplate jdbcTemplate = (JdbcTemplate)application.getBean(&quot;jdbcTemplate&quot;);
+		String sql = &quot;create table account(&quot; + 
+				     &quot;username varchar(50) primary key,&quot; + 
+				     &quot;password varchar(50),&quot; + 
+				     &quot;balance double)&quot;;
+		jdbcTemplate.execute(sql);
+		System.out.println(&quot;account表创建成功&quot;);
+	}
+	
+	//测试转账功能
+	@Test
+	public void transferAccountTest() {
+		ApplicationContext applicationContext = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);
+		AccountDao accountDao = (AccountDao) applicationContext.getBean(&quot;accountDao&quot;);
+		Account a = new Account(&quot;dzl&quot;,&quot;123456&quot;,1000);
+		Account b = new Account(&quot;qwe&quot;,&quot;123456&quot;,100000);
+		accountDao.transferAccount(a, b, 1000);
+	}
+}
+
+</code></pre>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li><a href="https://kobeduu.github.io/post-images/1585832991551.png">理解 spring 事务传播行为与数据隔离级别.[简书]</a></li>
+</ul>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://kobeduu.github.io/tag/OCnZQ2U9o/" class="tag">
+                    Spring学习笔记
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://kobeduu.github.io/post/spring-de-shu-ju-ku-kai-fa/">
+                  <h3 class="post-title">
+                    Spring 的数据库开发
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+<script>
+    renderMathInElement(document.body,
+   {
+              delimiters: [
+                  {left: "$$", right: "$$", display: true},
+                  {left: "$", right: "$", display: false}
+              ]
+          }
+  );
+</script>
+
+
+
+
+  </body>
+</html>

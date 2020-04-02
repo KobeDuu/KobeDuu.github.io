@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://kobeduu.github.io</id>
     <title>KobeDuu</title>
-    <updated>2020-04-01T14:40:24.698Z</updated>
+    <updated>2020-04-02T13:28:27.020Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://kobeduu.github.io"/>
     <link rel="self" href="https://kobeduu.github.io/atom.xml"/>
@@ -10,6 +10,13 @@
     <logo>https://kobeduu.github.io/images/avatar.png</logo>
     <icon>https://kobeduu.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, KobeDuu</rights>
+    <entry>
+        <title type="html"><![CDATA[Spring 的事务管理]]></title>
+        <id>https://kobeduu.github.io/post/spring-de-shi-wu-guan-li/</id>
+        <link href="https://kobeduu.github.io/post/spring-de-shi-wu-guan-li/">
+        </link>
+        <updated>2020-04-02T13:08:50.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Spring 的数据库开发]]></title>
         <id>https://kobeduu.github.io/post/spring-de-shu-ju-ku-kai-fa/</id>
