@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://kobeduu.github.io</id>
     <title>KobeDuu</title>
-    <updated>2020-04-02T13:32:43.361Z</updated>
+    <updated>2020-04-08T06:56:01.293Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://kobeduu.github.io"/>
     <link rel="self" href="https://kobeduu.github.io/atom.xml"/>
@@ -23,6 +23,16 @@
         <link href="https://kobeduu.github.io/post/spring-de-shu-ju-ku-kai-fa/">
         </link>
         <updated>2020-04-01T13:59:48.000Z</updated>
+        <summary type="html"><![CDATA[<ul>
+<li><strong>登天难，求人更难。黄连苦，无钱更苦。</strong></li>
+<li><strong>江湖险，人心更险。春冰薄，人情更薄。</strong></li>
+</ul>
+]]></summary>
+        <content type="html"><![CDATA[<ul>
+<li><strong>登天难，求人更难。黄连苦，无钱更苦。</strong></li>
+<li><strong>江湖险，人心更险。春冰薄，人情更薄。</strong></li>
+</ul>
+]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[Spring 中的 Bean]]></title>
