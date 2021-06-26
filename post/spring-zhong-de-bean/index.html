@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://kobeduu.github.io/favicon.ico?v=1586328957598">
+<link rel="shortcut icon" href="https://kobeduu.github.io/favicon.ico?v=1624698162368">
 <link rel="stylesheet" href="https://kobeduu.github.io/styles/main.css">
 
 
@@ -36,7 +36,7 @@ Bean 的..." />
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://kobeduu.github.io">
-        <img src="https://kobeduu.github.io/images/avatar.png?v=1586328957598" class="site-logo">
+        <img src="https://kobeduu.github.io/images/avatar.png?v=1624698162368" class="site-logo">
         <h1 class="site-title">KobeDuu</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -214,15 +214,20 @@ public class TestBean {
 <li><strong>自动装配</strong><br>
 通过设置 &lt; bean &gt; 中 autowire 的属性值来自动装配 Bean</li>
 <li><strong>基于注解的装配（常用）</strong><br>
-@Component：用于描述 Spring 中的 Bean，它是一个泛化的概念，仅仅表示一个组件<br>
-@Repository：将数据访问层（DAO）的类标识为 Spring 中的 Bean<br>
-@Service：将业务层（Service）的类标识为 Spring 中的 Bean<br>
-@Controller：将控制层（Controller）的类标识为 Spring 中的 Bean<br>
-@Autowired：对 Bean 的属性变量、属性的 setter 方法及构造方法进行标注，配合对应的注解处理器完成 Bean 的自动配置工作<br>
-@Resource：其作用与 Autowired 一样。它有两个重要属性：name 和  type，name 为 Bean 的实例名称，type 为 Bean 的实例类型<br>
-@Qualifier：与 @Autowired 注解配合使用，会将默认的按 Bean 类型装配修改为按 Bean 的实例名称装配，Bean 的实例名称由 @Qualifier 注解的参数指定</li>
+@Component：用于描述 Spring 中的 Bean，它是一个泛化的概念，仅仅表示一个组件。<br>
+@Repository：将数据访问层（DAO）的类标识为 Spring 中的 Bean。<br>
+@Service：将业务层（Service）的类标识为 Spring 中的 Bean。<br>
+@Controller：将控制层（Controller）的类标识为 Spring 中的 Bean。<br>
+@Autowired：对 Bean 的属性变量、属性的 setter 方法及构造方法进行标注，配合对应的注解处理器完成 Bean 的自动配置工作。<br>
+@Resource：其作用与 Autowired 一样。它有两个重要属性：name 和  type，name 为 Bean 的实例名称，type 为 Bean 的实例类型。<br>
+@Qualifier：与 @Autowired 注解配合使用，会将默认的按 Bean 类型装配修改为按 Bean 的实例名称装配，Bean 的实例名称由 @Qualifier 注解的参数指定。<br>
+@ComponentScan：自动扫描配置类所在的包以及子包中 Bean 到 Spring 容器。<br>
+@Primary：被注解的 Bean 优先被装配，用于一个接口多个实现时。<br>
+@PostConstruct：用于方法在构造器之后被调用。<br>
+@PreDestroy：用于方法在销毁之前被调用。<br>
+@Scope(&quot;xxx&quot;)：用于管理 Bean 的作用范围。<br>
+@Configuration：标识一个配置类，可结合 @Bean 用于装配第三方的 Bean。</li>
 </ul>
-<hr>
 <p>UserDao 类</p>
 <pre><code class="language-java">package Annotation;
 

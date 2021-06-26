@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>MySql 学习笔记 | KobeDuu</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://kobeduu.github.io/favicon.ico?v=1624698162368">
+<link rel="stylesheet" href="https://kobeduu.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="1. 基础概念
+
+增(insert)
+insert into 表名(字段1,字段2,,字段3) values(值1,值2,值3);
+删(delete)
+delete from 表名 where 条件;
+改(update)
+update 表名..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://kobeduu.github.io">
+        <img src="https://kobeduu.github.io/images/avatar.png?v=1624698162368" class="site-logo">
+        <h1 class="site-title">KobeDuu</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://kobeduu.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">MySql 学习笔记</h2>
+            <div class="post-date">2020-11-28</div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="1-基础概念">1. 基础概念</h2>
+<ul>
+<li><strong>增(insert)</strong><br>
+<code>insert into 表名(字段1,字段2,,字段3) values(值1,值2,值3);</code></li>
+<li><strong>删(delete)</strong><br>
+<code>delete from 表名 where 条件;</code></li>
+<li><strong>改(update)</strong><br>
+<code>update 表名 set 字段名 = 值 where 条件;</code></li>
+<li><strong>查(select)</strong><br>
+<code>select 字段名 from 表名 where 条件;</code></li>
+<li><strong>储存过程</strong><br>
+一组为了完成特定功能的 SQL 语句集合，实现了 SQL 语句层面的代码封装与重用，一次编译永久使用，由于位于服务端，减少了网络传输流量。</li>
+<li><strong>视图</strong><br>
+视图是虚拟的表，提供了MySQL select 语句层次的封装，用来简化数据处理，隐藏基表数据。</li>
+<li><strong>游标</strong><br>
+提供了对结果集任何一行记录处理的能力。</li>
+</ul>
+<h2 id="2-索引">2. 索引</h2>
+<h3 id="21-b-树和-b-树的区别">2.1 B 树和 B+ 树的区别</h3>
+<ul>
+<li>B+ 树只在叶子节点存储数据，非叶子节点就能存放更多的key，树的高度更低。</li>
+<li>B+ 树叶子节点通过双指针连接，便于范围查询。</li>
+</ul>
+<h3 id="22-建立索引的原则">2.2 建立索引的原则</h3>
+<ul>
+<li>为 where，group by，order by，on 子句后面的列创建索引。</li>
+<li>基数（不重复元素的个数）小的列不要创建索引。</li>
+<li>索引列的数据类型尽量小。</li>
+<li>频繁更新的列不要建立索引。</li>
+</ul>
+<h3 id="23-索引失效">2.3 索引失效</h3>
+<blockquote>
+<p>索引值是按照索引列的大小依次排序的，如果不能按照索引列的顺寻依次检索数据都会导致索引失效。</p>
+</blockquote>
+<ul>
+<li>or 连接的查询。</li>
+<li>like 以%开头的匹配。</li>
+<li>发生隐式转换。</li>
+<li>索引列使用了函数或者运算。</li>
+<li>数据基数小，全表扫描更快时。</li>
+</ul>
+<h3 id="24-聚簇索引和非聚簇索引">2.4 聚簇索引和非聚簇索引</h3>
+<ul>
+<li><strong>聚集索引</strong><br>
+聚集索引默认是主键，如果表没有主键，InnoDB会选择唯一且非空的列代替，还是没有则会隐式定义主键。</li>
+<li><strong>非聚簇索引</strong><br>
+索引结构的叶子节点指向了数据的对应行，而没有储存完整的行记录。</li>
+</ul>
+<h2 id="3-事务">3. 事务</h2>
+<h3 id="31-事务的特性">3.1 事务的特性</h3>
+<ul>
+<li><strong>原子性（Atomicity）</strong><br>
+事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生，即要么commit，要么rollback，InnoDB通过undolog保证rollback的时候能找到之前的数据。</li>
+<li><strong>一致性（Consistency）</strong><br>
+事务在完成后数据的完整性必须保持一致，通过其他三个特性体现。</li>
+<li><strong>隔离性（Isolation）</strong><br>
+多个用户并发访问数据库时，一个用户的事务不能被其他用户的事务所干扰，多个并发事务之间的数据要相互隔离。</li>
+<li><strong>持久性（Durability）</strong><br>
+一个事务一旦被提交，它对数据库中数据的改变应该是永久性的，即使数据库发生故障也不应该对其有任何影响，InnoDB通过redolog保证已经commit的数据一定不会丢失。</li>
+</ul>
+<h3 id="32-事务并发带来的问题">3.2 事务并发带来的问题</h3>
+<ul>
+<li><strong>脏读</strong><br>
+一个事务读取到另一个事务还未提交的数据。</li>
+<li><strong>不可重复读</strong><br>
+一事务两次相同的读取操作结果却不一致，比如另一个事务在中间执行了更新操作。</li>
+<li><strong>幻读</strong><br>
+一个事务第二次读取到的数据比第一次的更多了，比如另一个事务插入了一行记录，因此产生幻觉。</li>
+</ul>
+<h3 id="32-事务的隔离级别">3.2 事务的隔离级别</h3>
+<p><img src="https://kobeduu.github.io/post-images/1606553485869.png" alt="" loading="lazy"><br>
+MySQL默认的隔离级别是可重复读。</p>
+<ul>
+<li><strong>未提交读</strong><br>
+最低的隔离级别。</li>
+<li><strong>提交读</strong><br>
+解决了脏读问题。</li>
+<li><strong>可重复读</strong><br>
+避免了不可重复读问题。</li>
+<li><strong>可串行化</strong><br>
+最高的隔离级别，只允许事务串行执行，通过加锁机制实现。</li>
+</ul>
+<h2 id="4-锁">4. 锁</h2>
+<h3 id="41-乐观锁和悲观锁">4.1 乐观锁和悲观锁</h3>
+<p>乐观并发控制（乐观锁）和悲观并发控制（悲观锁）是并发控制主要采用的技术手段，乐观锁通过 MVCC 实现，适用于多读场景；悲观锁通过数据库的锁机制实现，适用于多写场景。</p>
+<h3 id="42-共享锁和排它锁">4.2 共享锁和排它锁</h3>
+<p>也称作读锁和写锁，其中只有读-读兼容，记录加上了读锁，会阻塞对其写的操作，直到读锁被释放。</p>
+<h3 id="43-innodb-的行锁">4.3 InnoDB 的行锁</h3>
+<ul>
+<li>Record lock<br>
+记录锁始终只锁定索引，是单个行记录上的锁。</li>
+<li>Gap lock<br>
+间隙锁作用在索引记录之间的间隔，不包含记录本身。</li>
+<li>Next-key lock<br>
+Record+Gap lock，锁定一个范围，包含记录本身。</li>
+</ul>
+<h3 id="44-自增锁">4.4 自增锁</h3>
+<p>自增锁是事务插入时自增列上特殊的表级别的锁，便于插入的行获得连续的主键值。</p>
+<h3 id="45-加锁">4.5 加锁</h3>
+<ul>
+<li>增加行级锁之前，InnoDB 自动给表加意向锁。</li>
+<li>执行 DML 语句时，InnoDB 自动给数据加排他锁。</li>
+<li>执行 DQL 语句时，&quot;LOCK IN SHARE MODE&quot; 加共享锁，&quot;FOR UPDATE&quot; 加排他锁，范围查询时自动添加间隙锁，防止幻读；通过索引检索数据加行锁，全表扫描加表锁。</li>
+</ul>
+<h3 id="46-死锁">4.6 死锁</h3>
+<ul>
+<li><strong>解决方案</strong><br>
+InnoDB 自动检测，自动回滚一个事务。<br>
+设置超时等待参数 innodb_lock_wait_timeout。</li>
+<li><strong>死锁避免</strong><br>
+约定以相同的顺寻访问表。</li>
+</ul>
+<h2 id="5-存储引擎">5. 存储引擎</h2>
+<ul>
+<li><strong>InnoDB</strong><br>
+提供了良好的事务处理、并发控制和崩溃修复的能力，支持行级锁，支持外键。缺点是读写效率较差，占用的数据空间相对较大。</li>
+<li><strong>MyISAM</strong><br>
+提供了高速存储和检索，以及全文搜索的能力，但不支持事务、只支持表锁使得并发性较低。</li>
+</ul>
+<h2 id="6-多版本控制-mvcc">6. 多版本控制 MVCC</h2>
+<blockquote>
+<p><strong>MVVC 目的在于提高数据库高并发场景下的吞吐性能，避免读-写冲突加锁操作, 降低开销。</strong></p>
+</blockquote>
+<ul>
+<li><strong>InnoDB 引擎支持 MVCC</strong></li>
+<li><strong>MVCC 在已提交读(RC)和可重复读(RR)的隔离级别下起作用</strong></li>
+<li><strong>MVCC 的实现原理</strong><br>
+在InnoDB中，每一行都有2个隐藏列DATA_TRX_ID（最近修改该行的事务ID）和DATA_ROLL_PTR（指向该行回滚段的指针）；当需要一致性读时，MySQL会创建一个包含当前活跃事务ID的ReadView当作当前事务的快照，这些ID的最小值为up_limit_id，最大值为low_limit_id；<br>
+如果某个行记录上的trx_id&lt;up_limit_id，则说明这条记录的最后修改在ReadView创建之前，因此这条记录可以被看见；<br>
+如果记录上的trx_id&gt;=low_limit_id，则说明这条记录的最后修改在ReadView创建之后，因此这条记录不可以被看见；<br>
+如果trx_id在up_limit_id和low_limit_id之间，且trx_id在ID列表之中，则表示这条记录的最后修改是在ReadView创建之时，被另外一个活跃事务所修改，所以这条记录不可以被看见。如果trx_id不在ID列表之中，则表示这条记录的最后修改在ReadView创建之前，所以可以看见。<br>
+对于不可见记录，会去undolog中构建旧的版本；针对RC隔离级别，事务中的每个查询语句都单独构建一个ReadView，而在RR级别下，ReadView会在第一次创建后一直持续到事务结束。</li>
+</ul>
+<h2 id="7-数据库日志">7. 数据库日志</h2>
+<h3 id="71-redo-log">7.1 redo log</h3>
+<p>InnoDB 是以页为单位来进行磁盘IO的，磁盘上的页需要缓存到内存中的 Buffer Pool 才可以访问和修改，如果事务提交后就将内存中的页刷新到磁盘，效率太低；redo log记录了那个页的那个位置做了什么改变等信息，一开始它也存储在log buffer pool中，日志落盘时机可以设置。</p>
+<h3 id="72-undo-log">7.2 undo log</h3>
+<p>提供回滚和行记录的版本控制。</p>
+<h3 id="73-binlog">7.3 binlog</h3>
+<p>记录已提交事务的修改操作的 SQL 语句，作用于所有存储引擎，可以作为恢复数据使用，实现主从复制。</p>
+<h2 id="8-数据库范式">8. 数据库范式</h2>
+<blockquote>
+<p><strong>使表结构更合理，避免大量数据冗余，节省储存空间，保持数据的一致性</strong></p>
+</blockquote>
+<ul>
+<li><strong>第一范式</strong><br>
+表的每一列都是不可分割的原子数据项。</li>
+<li><strong>第二范式</strong><br>
+在一范式的基础上，非码属性必须完全依赖于候选码，消除非主属性对主码的部分函数依赖。</li>
+<li><strong>第三范式</strong><br>
+在二范式的基础上，非主属性不依赖于其它非主属性，消除传递依赖。</li>
+</ul>
+<h2 id="9-数据库优化">9. 数据库优化</h2>
+<h3 id="91-sql的优化">9.1 SQL的优化</h3>
+<ul>
+<li>查看 MySQL 慢查询日志</li>
+<li>通过 explain 查询和分析 SQL 的执行计划</li>
+</ul>
+<h3 id="92-大表优化">9.2 大表优化</h3>
+<ul>
+<li>垂直拆分</li>
+<li>水平拆分</li>
+<li>读写分离</li>
+</ul>
+<h2 id="10-其他">10. 其他</h2>
+<h3 id="101-辅助索引使用主键作为指针而不是使用地址值">10.1 辅助索引使用主键作为&quot;指针&quot;而不是使用地址值？</h3>
+<p>减少当聚簇索引出现行移动或者数据页分裂时辅助索引的维护工作。</p>
+<h3 id="102-为什么不用-uuid-作为主键">10.2 为什么不用 UUID 作为主键？</h3>
+<p>UUID 的值稀疏无序，插入容易引起页的分裂和行的移动，UUID 是一个128 bit 的值，会浪费辅助索引的空间，同时降低比较时的效率；所以建议设置主键为 auto_increment。</p>
+<h3 id="103-隐式转换">10.3 隐式转换</h3>
+<p>一边为整数，另一边为字符串时，两边都会转换为浮点数进行比较。</p>
+<ul>
+<li><strong>左边数值类型，右边数值字符串，会走索引（右边转换为数值后唯一确定）</strong></li>
+<li><strong>左边字符串，右边数值类型，索引失效</strong></li>
+</ul>
+<h2 id="11-参考资料">11. 参考资料</h2>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/64576887">MySQL InnoDB MVCC机制的原理及实现.[知乎]</a></li>
+<li><a href="http://mysql.taobao.org/monthly/2017/12/01/">数据库内核月报.2017/09</a></li>
+</ul>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://kobeduu.github.io/post/git-xue-xi-bi-ji/">
+                  <h3 class="post-title">
+                    Git 学习笔记
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+<script>
+    renderMathInElement(document.body,
+   {
+              delimiters: [
+                  {left: "$$", right: "$$", display: true},
+                  {left: "$", right: "$", display: false}
+              ]
+          }
+  );
+</script>
+
+
+
+
+  </body>
+</html>

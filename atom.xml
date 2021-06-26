@@ -2,114 +2,82 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://kobeduu.github.io</id>
     <title>KobeDuu</title>
-    <updated>2020-04-08T06:56:01.293Z</updated>
+    <updated>2021-06-26T09:42:04.765Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://kobeduu.github.io"/>
     <link rel="self" href="https://kobeduu.github.io/atom.xml"/>
     <subtitle>温故而知新</subtitle>
     <logo>https://kobeduu.github.io/images/avatar.png</logo>
     <icon>https://kobeduu.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2020, KobeDuu</rights>
+    <rights>All rights reserved 2021, KobeDuu</rights>
     <entry>
-        <title type="html"><![CDATA[Spring 的事务管理]]></title>
-        <id>https://kobeduu.github.io/post/spring-de-shi-wu-guan-li/</id>
-        <link href="https://kobeduu.github.io/post/spring-de-shi-wu-guan-li/">
+        <title type="html"><![CDATA[test]]></title>
+        <id>https://kobeduu.github.io/post/test/</id>
+        <link href="https://kobeduu.github.io/post/test/">
         </link>
-        <updated>2020-04-02T13:08:50.000Z</updated>
+        <updated>2021-06-26T09:02:35.000Z</updated>
     </entry>
     <entry>
-        <title type="html"><![CDATA[Spring 的数据库开发]]></title>
-        <id>https://kobeduu.github.io/post/spring-de-shu-ju-ku-kai-fa/</id>
-        <link href="https://kobeduu.github.io/post/spring-de-shu-ju-ku-kai-fa/">
+        <title type="html"><![CDATA[Kafka 学习笔记]]></title>
+        <id>https://kobeduu.github.io/post/kafka-xue-xi-bi-ji/</id>
+        <link href="https://kobeduu.github.io/post/kafka-xue-xi-bi-ji/">
         </link>
-        <updated>2020-04-01T13:59:48.000Z</updated>
-        <summary type="html"><![CDATA[<ul>
-<li><strong>登天难，求人更难。黄连苦，无钱更苦。</strong></li>
-<li><strong>江湖险，人心更险。春冰薄，人情更薄。</strong></li>
-</ul>
-]]></summary>
-        <content type="html"><![CDATA[<ul>
-<li><strong>登天难，求人更难。黄连苦，无钱更苦。</strong></li>
-<li><strong>江湖险，人心更险。春冰薄，人情更薄。</strong></li>
-</ul>
-]]></content>
+        <updated>2021-02-19T02:13:46.000Z</updated>
     </entry>
     <entry>
-        <title type="html"><![CDATA[Spring 中的 Bean]]></title>
-        <id>https://kobeduu.github.io/post/spring-zhong-de-bean/</id>
-        <link href="https://kobeduu.github.io/post/spring-zhong-de-bean/">
+        <title type="html"><![CDATA[项目总结]]></title>
+        <id>https://kobeduu.github.io/post/xiang-mu-zong-jie/</id>
+        <link href="https://kobeduu.github.io/post/xiang-mu-zong-jie/">
         </link>
-        <updated>2020-03-29T10:05:37.000Z</updated>
-        <summary type="html"><![CDATA[<ul>
-<li><strong>I love three things in this world.</strong></li>
-<li><strong>Sun, moon and you.</strong></li>
-<li><strong>Sun for morning, moon for night, and you forever.</strong></li>
-</ul>
-]]></summary>
-        <content type="html"><![CDATA[<ul>
-<li><strong>I love three things in this world.</strong></li>
-<li><strong>Sun, moon and you.</strong></li>
-<li><strong>Sun for morning, moon for night, and you forever.</strong></li>
-</ul>
-]]></content>
+        <updated>2021-02-18T09:06:59.000Z</updated>
     </entry>
     <entry>
-        <title type="html"><![CDATA[堆排序和快速排序]]></title>
-        <id>https://kobeduu.github.io/post/dui-pai-xu-he-kuai-su-pai-xu/</id>
-        <link href="https://kobeduu.github.io/post/dui-pai-xu-he-kuai-su-pai-xu/">
+        <title type="html"><![CDATA[Spring 学习笔记]]></title>
+        <id>https://kobeduu.github.io/post/spring-xue-xi-bi-ji/</id>
+        <link href="https://kobeduu.github.io/post/spring-xue-xi-bi-ji/">
         </link>
-        <updated>2020-03-25T14:52:20.000Z</updated>
-        <summary type="html"><![CDATA[<p></p>
-<ul>
-<li>
-<p><strong>If you do not think about your future, you cannot have it.</strong></p>
-</li>
-<li>
-<p><strong>如果你不思考未来，你就不会有未来。</strong></p>
-</li>
-</ul>
-]]></summary>
-        <content type="html"><![CDATA[<p></p>
-<ul>
-<li>
-<p><strong>If you do not think about your future, you cannot have it.</strong></p>
-</li>
-<li>
-<p><strong>如果你不思考未来，你就不会有未来。</strong></p>
-</li>
-</ul>
-]]></content>
+        <updated>2021-02-16T08:07:06.000Z</updated>
     </entry>
     <entry>
-        <title type="html"><![CDATA[初识 Spring 框架]]></title>
-        <id>https://kobeduu.github.io/post/chu-shi-spring-kuang-jia/</id>
-        <link href="https://kobeduu.github.io/post/chu-shi-spring-kuang-jia/">
+        <title type="html"><![CDATA[2021 春招简历投递记录]]></title>
+        <id>https://kobeduu.github.io/post/2021-chun-zhao-jian-li-tou-di-ji-lu/</id>
+        <link href="https://kobeduu.github.io/post/2021-chun-zhao-jian-li-tou-di-ji-lu/">
         </link>
-        <updated>2020-03-21T07:36:26.000Z</updated>
-        <summary type="html"><![CDATA[<ul>
-<li><strong>Life is not a matter of holding good cards</strong></li>
-<li><strong>but sometimes, playing a poor hand well.</strong></li>
-<li><strong>生命并非在于抓了一把好牌，而往往是把烂牌打好。</strong></li>
-</ul>
-]]></summary>
-        <content type="html"><![CDATA[<ul>
-<li><strong>Life is not a matter of holding good cards</strong></li>
-<li><strong>but sometimes, playing a poor hand well.</strong></li>
-<li><strong>生命并非在于抓了一把好牌，而往往是把烂牌打好。</strong></li>
-</ul>
-]]></content>
+        <updated>2021-02-10T14:13:36.000Z</updated>
     </entry>
     <entry>
-        <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>https://kobeduu.github.io/post/hello-gridea/</id>
-        <link href="https://kobeduu.github.io/post/hello-gridea/">
+        <title type="html"><![CDATA[Linux 学习笔记]]></title>
+        <id>https://kobeduu.github.io/post/linux-xue-xi-bi-ji/</id>
+        <link href="https://kobeduu.github.io/post/linux-xue-xi-bi-ji/">
         </link>
-        <updated>2018-12-11T16:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-]]></content>
+        <updated>2021-02-09T03:26:48.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ElasticSearch 学习笔记]]></title>
+        <id>https://kobeduu.github.io/post/elasticsearch-xue-xi-bi-ji/</id>
+        <link href="https://kobeduu.github.io/post/elasticsearch-xue-xi-bi-ji/">
+        </link>
+        <updated>2021-02-08T02:41:19.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Spring Boot 学习笔记]]></title>
+        <id>https://kobeduu.github.io/post/spring-boot-xue-xi-bi-ji/</id>
+        <link href="https://kobeduu.github.io/post/spring-boot-xue-xi-bi-ji/">
+        </link>
+        <updated>2021-01-08T04:50:05.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[给她的一封信]]></title>
+        <id>https://kobeduu.github.io/post/gei-ta-de-yi-feng-xin/</id>
+        <link href="https://kobeduu.github.io/post/gei-ta-de-yi-feng-xin/">
+        </link>
+        <updated>2021-01-06T10:19:55.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[JAVA 进阶学习笔记]]></title>
+        <id>https://kobeduu.github.io/post/java-jin-jie-xue-xi-bi-ji/</id>
+        <link href="https://kobeduu.github.io/post/java-jin-jie-xue-xi-bi-ji/">
+        </link>
+        <updated>2020-12-28T03:23:03.000Z</updated>
     </entry>
 </feed>

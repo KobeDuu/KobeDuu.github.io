@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Git 学习笔记 | KobeDuu</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://kobeduu.github.io/favicon.ico?v=1624698162368">
+<link rel="stylesheet" href="https://kobeduu.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="1. Git 简述
+
+李纳斯·托沃兹（Linus Benedic Torvalds）是 Git 和 Linux 之父
+
+
+目前最先进的分布式版本控制系统，每个用户的本地仓库都拥有所有的版本信息
+Git 对待数据并非记录差异，而是直接保存发生..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://kobeduu.github.io">
+        <img src="https://kobeduu.github.io/images/avatar.png?v=1624698162368" class="site-logo">
+        <h1 class="site-title">KobeDuu</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://kobeduu.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Git 学习笔记</h2>
+            <div class="post-date">2020-11-25</div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="1-git-简述">1. Git 简述</h2>
+<blockquote>
+<p><strong>李纳斯·托沃兹（Linus Benedic Torvalds）是 Git 和 Linux 之父</strong></p>
+</blockquote>
+<ul>
+<li><strong>目前最先进的分布式版本控制系统，每个用户的本地仓库都拥有所有的版本信息</strong></li>
+<li><strong>Git 对待数据并非记录差异，而是直接保存发生改变的文件的快照</strong></li>
+<li><strong>Git 基于文件内容和目录结构采用 SHA-1 计算校验和来保证数据的完整性</strong></li>
+</ul>
+<h2 id="2-git-架构模型">2. Git 架构模型</h2>
+<figure data-type="image" tabindex="1"><img src="https://kobeduu.github.io/post-images/1612927225470.png" alt="" loading="lazy"></figure>
+<ul>
+<li><strong>Workspace</strong><br>
+本地工作区，平时存放代码的地方。</li>
+<li><strong>Index</strong><br>
+本地暂存区，存放临时的改动。</li>
+<li><strong>Repository</strong><br>
+本地仓库，存放已提交的所有版本信息。</li>
+<li><strong>Remote</strong><br>
+远程仓库，托管代码的远程服务器。</li>
+</ul>
+<h2 id="3-git-基本指令">3. Git 基本指令</h2>
+<ul>
+<li><strong>git init</strong><br>
+初始化本地仓库，生成 .git 文件。</li>
+<li><strong>git add</strong><br>
+添加文件到暂存区。</li>
+<li><strong>git commit</strong><br>
+提交暂存区的文件到本地仓库。</li>
+<li><strong>git clone</strong><br>
+拷贝一份远程仓库，也就是下载一个项目。</li>
+<li><strong>git status</strong><br>
+查看仓库当前的状态，显示有变更的文件。</li>
+<li><strong>git diff</strong><br>
+比较文件的不同，即暂存区和工作区的差异。</li>
+<li><strong>git pull</strong><br>
+下载远程代码并合并。</li>
+<li><strong>git push</strong><br>
+上传远程代码并合并。</li>
+<li><strong>git tag</strong><br>
+创建标签</li>
+<li><strong>git log</strong><br>
+查看当前版本及以前提交的版本信息</li>
+<li><strong>git reflog</strong><br>
+查看历史版本变化情况</li>
+</ul>
+<h2 id="4-撤销修改">4. 撤销修改</h2>
+<pre><code class="language-bash"># 撤销工作区的修改，优先退到暂存区的版本，暂存区没有则退到本地仓库的版本
+git checkout -- &lt;file&gt;
+</code></pre>
+<pre><code class="language-bash"># 撤销暂存区中关于 file 文件的修改，不会影响工作区
+git reset HEAD &lt;file&gt;
+</code></pre>
+<pre><code class="language-bash"># 退回到 commitID 指向的版本
+git reset --hard &lt;commitID&gt;
+</code></pre>
+<h2 id="5-远程托管">5. 远程托管</h2>
+<pre><code class="language-bash"># 添加一个名为 url 的远程仓库
+git remote add url https://xxx/xxx       
+# 推送到远程仓库
+git push url master                              
+# 查看远程仓库
+git remote -v
+
+
+# 拉取远程仓库与本地合并
+git pull --rebase url master 
+
+# 拉取远程仓库代码
+git clone url
+</code></pre>
+<h2 id="6-分支管理">6. 分支管理</h2>
+<pre><code class="language-bash"># 1
+git granch testing
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://kobeduu.github.io/post-images/1612932327705.png" alt="" loading="lazy"></figure>
+<pre><code class="language-bash"># 2
+git checkout testing
+</code></pre>
+<figure data-type="image" tabindex="3"><img src="https://kobeduu.github.io/post-images/1612932341276.png" alt="" loading="lazy"></figure>
+<pre><code class="language-bash"># 3
+vim test.txt
+git commit -a -m &quot;test branch&quot;  # 提交新文件
+</code></pre>
+<figure data-type="image" tabindex="4"><img src="https://kobeduu.github.io/post-images/1612932358863.png" alt="" loading="lazy"></figure>
+<pre><code class="language-bash"># 4
+git checkout master
+</code></pre>
+<figure data-type="image" tabindex="5"><img src="https://kobeduu.github.io/post-images/1612932369831.png" alt="" loading="lazy"></figure>
+<pre><code class="language-bash"># 5
+vim test.txt
+git commit -a -m &quot;test other branch&quot;
+</code></pre>
+<figure data-type="image" tabindex="6"><img src="https://kobeduu.github.io/post-images/1612932374914.png" alt="" loading="lazy"></figure>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://kobeduu.github.io/post/ji-suan-ji-wang-luo/">
+                  <h3 class="post-title">
+                    计算机网络学习笔记
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+<script>
+    renderMathInElement(document.body,
+   {
+              delimiters: [
+                  {left: "$$", right: "$$", display: true},
+                  {left: "$", right: "$", display: false}
+              ]
+          }
+  );
+</script>
+
+
+
+
+  </body>
+</html>

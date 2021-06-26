@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Linux 学习笔记 | KobeDuu</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://kobeduu.github.io/favicon.ico?v=1624698162368">
+<link rel="stylesheet" href="https://kobeduu.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="1. Linux 概述
+
+Linux 是一个开源的基于 POSIX 和 UNIX 的多用户、多任务、支持多线程和多核的操作系统。
+
+2. 目录管理
+2.1 目录结构
+
+
+bin
+存放系统中所有的命令。
+etc
+存放所有的系统管理所需要的配置..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://kobeduu.github.io">
+        <img src="https://kobeduu.github.io/images/avatar.png?v=1624698162368" class="site-logo">
+        <h1 class="site-title">KobeDuu</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://kobeduu.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Linux 学习笔记</h2>
+            <div class="post-date">2021-02-09</div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="1-linux-概述">1. Linux 概述</h2>
+<blockquote>
+<p><strong>Linux 是一个开源的基于 POSIX 和 UNIX 的多用户、多任务、支持多线程和多核的操作系统。</strong></p>
+</blockquote>
+<h2 id="2-目录管理">2. 目录管理</h2>
+<h3 id="21-目录结构">2.1 目录结构</h3>
+<figure data-type="image" tabindex="1"><img src="https://kobeduu.github.io/post-images/1612944642904.jpg" alt="" loading="lazy"></figure>
+<ul>
+<li><strong>bin</strong><br>
+存放系统中所有的命令。</li>
+<li><strong>etc</strong><br>
+存放所有的系统管理所需要的配置文件。</li>
+<li><strong>home</strong><br>
+用户的主目录，每个用户都有一个自己的目录。</li>
+<li><strong>root</strong><br>
+具有超级权限的用户的主目录</li>
+<li><strong>usr</strong><br>
+很多用户的应用程序和文件都存放在这个目录下。</li>
+<li><strong>var</strong><br>
+存放着不断扩充的文件，比如日志文件。</li>
+<li><strong>boot</strong><br>
+存放这启动 Linux 的核心文件。</li>
+<li><strong>lib</strong><br>
+存放着系统最基本的动态链接共享库。</li>
+</ul>
+<h3 id="22-常用命令">2.2 常用命令</h3>
+<pre><code class="language-bash">ls [-al]   # 列出当前目录下的所有的文件和目录，[-a] 显示隐藏文件，[-f] 显示文件的基本信息
+cd    # 切换目录，[cd ..] 回到上一级目录，[cd /] 回到根目录
+pwd    # 显示当前所在的目录
+mkdir [-mp]   # 创建一个目录，[-m] 配置权限，[-p] 递归创建多级目录
+rmdir    # 删除一个目录，只能删除空目录
+
+cp [-pdri] [source] [destination]   
+# 复制文件或目录，-[p] 复制文件属性，-[d] 若源文档为 Link file，则复制 Link file 而非文件本身，-[r] 递归复制，[-i] 若目标已存在，询问是否覆盖
+
+rm [-rf]   # 移除文件或目录，[-f] force 的意思，不会出现警告信息，[-r] 递归删除
+mv   # 移动文件，或者修改文件名称  
+</code></pre>
+<h2 id="3-文件管理">3. 文件管理</h2>
+<figure data-type="image" tabindex="2"><img src="https://kobeduu.github.io/post-images/1612947093557.jfif" alt="" loading="lazy"></figure>
+<h3 id="31-文件类型">3.1 <strong>文件类型</strong></h3>
+<ul>
+<li><strong>[d]</strong>：目录</li>
+<li><strong>[-]</strong>：文件</li>
+<li><strong>[l]</strong>：Link file</li>
+</ul>
+<h3 id="32-权限规则">3.2 <strong>权限规则</strong></h3>
+<ul>
+<li><strong>[r]</strong>：可读，1，4，7 表示读权限</li>
+<li><strong>[w]</strong>：可写，2，5，8 表示写权限</li>
+<li><strong>[x]</strong>：可执行，3，6，9 表示执行权限</li>
+<li><strong>[-]</strong>：没有该类权限</li>
+</ul>
+<h3 id="33-用户分组">3.3 <strong>用户分组</strong></h3>
+<ul>
+<li><strong>[属主]</strong>：文件所有者</li>
+<li><strong>[属组]</strong>：文件所有者的同组用户</li>
+<li><strong>[其他]</strong>：和文件所有者没有关系的用户</li>
+</ul>
+<h3 id="34-常用命令">3.4 <strong>常用命令</strong></h3>
+<pre><code class="language-bash">chgrp [-R] 属组名 文件名    # 更改文件属组，[-R] 递归更改
+
+chown [-R] 属主名 文件名    # 更改文件属主
+
+chmod [-R] xyz 文件名    # 更改权限，[x] 可读的权限，[y] 可写的权限，[z] 可执行的权限，[111 222 444] 对应位置的和代表三个位置权限，[x = 3, y = 1, z = 7] : [rwxr-x--x] 
+
+touch    # 修改文件或者目录的时间属性， 不存在则会创建
+cat    # 由第一行开始显示文件内容
+tac    # 从最后一行开始显示
+nl      # 显示带有行号的内容
+head -n [x]   # 只看开头的 x 行
+tail -n [x]   # 只看最后的 x 行
+less    # 一页一页的显示文件内容，/[string] 向下搜索 [string]，?[string] 向上搜索，[空格键] 翻页
+</code></pre>
+<h3 id="35-硬链接和软链接">3.5 硬链接和软链接</h3>
+<ul>
+<li><strong>硬链接</strong><br>
+Linux 系统中，保存在磁盘中的文件都有一个编号，称为索引节点，硬链接即是指多个文件名指向同一索引节点，相当于 Java 中的多个引用指向同一对象，软链接则是引用的引用。</li>
+<li><strong>软链接</strong><br>
+相当于 Windows 中的快捷方式，A 是 B 的软链接，删除 B，A 不能访问，但硬链接依然可以访问。</li>
+</ul>
+<h2 id="4-磁盘管理">4. 磁盘管理</h2>
+<pre><code class="language-bash">df [-ah]    # 显示文件系统的磁盘占用情况，[-a] 显示全部的文件系统，[-h] 以人们易读的 GB、MB、KB 等格式显示
+du [-ah] [文件 or 目录]    # 显示文件或者目录的磁盘占用情况 
+</code></pre>
+<h2 id="5-用户管理">5. 用户管理</h2>
+<pre><code class="language-bash">useradd [-gm] 用户名    # 创建登录的用户名，[-g] 指定用户的属组，[-m] 在 [/home/] 下创建用户目录
+userdel [-r] 用户名    # 删除用户名，[-r] 删除用户目录
+usermod [] 用户名    # 修改用户名的属性
+su 用户名    # 切换用户名
+passwd 用户名    # 修改用户的密码
+passwd [-l] 用户名    # 锁定某一用户，使其不能登录 
+</code></pre>
+<h2 id="6-进程管理">6. 进程管理</h2>
+<pre><code class="language-bash">ps [-erf]    # 查看进程，[-e] 显示所有进程，[-f] 全格式显示，[-r] 只显示正在运行中的进程
+ps -ef | grep [java]    # 通过管道使用 grep 过滤查找特定的进程
+kill [PID]    # 杀死进程ID = PID 的进程
+pstree    # 以树状形态查看各个进程之间的关系
+top [-dp]    # 实时显示各个进程的运行状态，[-d] 指定两次刷新之间的间隔，[-p] 指定 PID 来监控某个进程的状态
+</code></pre>
+<h2 id="6-vim-编辑器">6. vim 编辑器</h2>
+<figure data-type="image" tabindex="3"><img src="https://kobeduu.github.io/post-images/1612956028461.jpg" alt="" loading="lazy"></figure>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://kobeduu.github.io/post/elasticsearch-xue-xi-bi-ji/">
+                  <h3 class="post-title">
+                    ElasticSearch 学习笔记
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+<script>
+    renderMathInElement(document.body,
+   {
+              delimiters: [
+                  {left: "$$", right: "$$", display: true},
+                  {left: "$", right: "$", display: false}
+              ]
+          }
+  );
+</script>
+
+
+
+
+  </body>
+</html>

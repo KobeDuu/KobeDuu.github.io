@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://kobeduu.github.io/favicon.ico?v=1586328957598">
+<link rel="shortcut icon" href="https://kobeduu.github.io/favicon.ico?v=1624698162368">
 <link rel="stylesheet" href="https://kobeduu.github.io/styles/main.css">
 
 
@@ -42,7 +42,7 @@ If you do not think about your future, you cannot have it.
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://kobeduu.github.io">
-        <img src="https://kobeduu.github.io/images/avatar.png?v=1586328957598" class="site-logo">
+        <img src="https://kobeduu.github.io/images/avatar.png?v=1624698162368" class="site-logo">
         <h1 class="site-title">KobeDuu</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -237,7 +237,7 @@ def QuickSort(Array,aL,aR):
         while xL &lt; xR and Array[xR] &gt; temp:
             xR -= 1
         Array[xL] = Array[xR]
-        while xL &lt; xR and Array[xL] &lt; temp:
+        while xL &lt; xR and Array[xL] &lt;= temp:
             xL += 1
         Array[xR] = Array[xL]
     Array[xL] = temp

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Spring Boot 学习笔记 | KobeDuu</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://kobeduu.github.io/favicon.ico?v=1624698162368">
+<link rel="stylesheet" href="https://kobeduu.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="1. SpringBoot 简介
+继承了 Spring 框架原有的优秀特性，自动装配简化 Spring 繁琐的 xml 配置，通过集成大量的框架解决了依赖包的版本冲突问题。
+2. SpringBoot 自动装配原理
+
+业务代码 Bean 的..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://kobeduu.github.io">
+        <img src="https://kobeduu.github.io/images/avatar.png?v=1624698162368" class="site-logo">
+        <h1 class="site-title">KobeDuu</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://kobeduu.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Spring Boot 学习笔记</h2>
+            <div class="post-date">2021-01-08</div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="1-springboot-简介">1. SpringBoot 简介</h2>
+<p>继承了 Spring 框架原有的优秀特性，自动装配简化 Spring 繁琐的 xml 配置，通过集成大量的框架解决了依赖包的版本冲突问题。</p>
+<h2 id="2-springboot-自动装配原理">2. SpringBoot 自动装配原理</h2>
+<ul>
+<li><strong>业务代码 Bean 的装配</strong><br>
+@ComponentScan 实现包扫描的批量装配。</li>
+<li><strong>第三方 Bean 的装配</strong><br>
+<img src="https://kobeduu.github.io/post-images/1613460290500.png" alt="" loading="lazy"></li>
+</ul>
+<h2 id="3-starter-思想">3. Starter 思想</h2>
+<ul>
+<li><strong>xxxProperties</strong><br>
+第三方 Bean 的属性通过 @ConfigurationProperties(prefix = &quot;xxx&quot;) 注解实现在 application.properties 中的全局配置。</li>
+<li><strong>xxxAutoConfiguration</strong><br>
+引导 Bean 的自动装配。</li>
+<li><strong>spring.factories</strong><br>
+指出自动装配引导类的全限定名。</li>
+</ul>
+<h2 id="4-restful-web-服务">4. RESTful web 服务</h2>
+<blockquote>
+<p>RESTful Web 服务一般返回 JSON 格式的数据，这也是现在所推崇的前后端分离开发。</p>
+</blockquote>
+<pre><code class="language-java">@RestController
+public class userController {
+
+    private List&lt;Person&gt; list;
+
+    @PostConstruct
+    public void init() {
+        list = new ArrayList&lt;&gt;();
+        list.add(new Person(&quot;alice&quot;, &quot;123&quot;));
+        list.add(new Person(&quot;Bob&quot;, &quot;456&quot;));
+        list.add(new Person(&quot;Tom&quot;, &quot;789&quot;));
+        System.out.println(list);
+    }
+
+    @GetMapping(&quot;/persons/{index}&quot;)
+    public ResponseEntity getPerson(@PathVariable(&quot;index&quot;) int index) {
+        HashMap&lt;String, String&gt; map = new HashMap&lt;&gt;();
+        if (index &gt;= list.size()) {
+            map.put(&quot;code&quot;, &quot;404&quot;);
+            map.put(&quot;message&quot;, &quot;IndexOutOfBound!&quot;);
+        } else {
+            map.put(&quot;code&quot;, &quot;200&quot;);
+            map.put(&quot;message&quot;, &quot;ok&quot;);
+            map.put(&quot;name&quot;, list.get(index).getName());
+            map.put(&quot;IDCard&quot;, list.get(index).getIDCard());
+        }
+        return ResponseEntity.ok(map);
+    }
+}
+</code></pre>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://kobeduu.github.io/post/gei-ta-de-yi-feng-xin/">
+                  <h3 class="post-title">
+                    给她的一封信
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+<script>
+    renderMathInElement(document.body,
+   {
+              delimiters: [
+                  {left: "$$", right: "$$", display: true},
+                  {left: "$", right: "$", display: false}
+              ]
+          }
+  );
+</script>
+
+
+
+
+  </body>
+</html>

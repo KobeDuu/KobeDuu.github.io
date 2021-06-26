@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://kobeduu.github.io/favicon.ico?v=1586328957598">
+<link rel="shortcut icon" href="https://kobeduu.github.io/favicon.ico?v=1624698162368">
 <link rel="stylesheet" href="https://kobeduu.github.io/styles/main.css">
 
 
@@ -34,7 +34,7 @@ but sometimes, playing a poor hand well.
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://kobeduu.github.io">
-        <img src="https://kobeduu.github.io/images/avatar.png?v=1586328957598" class="site-logo">
+        <img src="https://kobeduu.github.io/images/avatar.png?v=1624698162368" class="site-logo">
         <h1 class="site-title">KobeDuu</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -118,7 +118,7 @@ but sometimes, playing a poor hand well.
 <li><strong>框架</strong>：将简单的组件配置、组合成为复杂的应用</li>
 <li><strong>轻量级</strong>：Spring 框架的大小及其所需的处理开销都很小</li>
 <li><strong>控制反转</strong>：指将对象的创建管理权交给 Spring 容器，不再通过 new 的方式去创建</li>
-<li><strong>面向切面</strong>：指将动态的代码切入到类的制定方法，指定位置的编程思想，利用 <abbr title="Aspect Oriented Programming">AOP</abbr> 可以对业务解耦，提高重用性，提升开发效率！</li>
+<li><strong>面向切面</strong>：指将动态的代码切入到类的指定方法，指定位置的编程思想，利用 <abbr title="Aspect Oriented Programming">AOP</abbr> 可以对业务解耦，提高重用性，提升开发效率！</li>
 </ul>
 <h2 id="二-spring-的优点">二. Spring 的优点</h2>
 <p>  （1）支持 <abbr title="Aspect Oriented Programming">AOP</abbr><br>
@@ -153,6 +153,7 @@ but sometimes, playing a poor hand well.
 <h2 id="五-控制反转和依赖注入的关系">五. 控制反转和依赖注入的关系</h2>
 <p>  如果一个类 A 的功能实现需要借助于类 B，那么就称类 B 是类 A 的依赖，如果在类 A 的内部去实例化类 B，那么两者之间会出现较高的耦合，一旦类 B 出现了问题，类 A 也需要进行改造，如果这样的情况较多，每个类之间都有很多依赖，那么就会出现牵一发而动全身的情况，程序会极难维护，并且很容易出现问题。要解决这个问题，就要把 A 类对 B 类的控制权抽离出来，交给一个第三方去做，把控制权反转给第三方，就称作控制反转</p>
 <p>  控制反转是一种思想，是能够解决问题的一种可能的结果，而依赖注入就是其最典型的实现方法。由第三方（<abbr title="Inversion of Control">IoC</abbr> 容器）来控制依赖，把他通过构造函数、属性或者工厂模式等方法，注入到类 A 内，这样就极大程度的对类 A 和类 B 进行了解耦</p>
+<h2 id="六-常用注解">六. 常用注解</h2>
 <h2 id="参考资料">参考资料</h2>
 <ul>
 <li>[1] <a href="https://baike.baidu.com/item/spring%E6%A1%86%E6%9E%B6/2853288?fr=aladdin">百度百科.Spring框架</a></li>

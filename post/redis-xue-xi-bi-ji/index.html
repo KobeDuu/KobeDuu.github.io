@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Redis 学习笔记 | KobeDuu</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://kobeduu.github.io/favicon.ico?v=1624698162368">
+<link rel="stylesheet" href="https://kobeduu.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="1.  基本数据类型
+1.1 String
+
+应用场景
+一般需要计数的场景，比如用户的访问次数，热点文章的点赞数量，验证码等。
+常用指令
+
+// EX 和 PX 设置过期时间，单位不一样
+// NX：key不存在时才会执行成功
+// XX：..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://kobeduu.github.io">
+        <img src="https://kobeduu.github.io/images/avatar.png?v=1624698162368" class="site-logo">
+        <h1 class="site-title">KobeDuu</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://kobeduu.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Redis 学习笔记</h2>
+            <div class="post-date">2020-12-18</div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="1-基本数据类型">1.  基本数据类型</h2>
+<h3 id="11-string">1.1 String</h3>
+<ul>
+<li><strong>应用场景</strong><br>
+一般需要计数的场景，比如用户的访问次数，热点文章的点赞数量，验证码等。</li>
+<li><strong>常用指令</strong></li>
+</ul>
+<pre><code class="language-java">// EX 和 PX 设置过期时间，单位不一样
+// NX：key不存在时才会执行成功
+// XX：key 存在时才会执行成功
+set key value [EX seconds] [PX milliseconds] [NX|XX]  
+get key
+del key
+// 批量操作
+mset key1 value1 key2 value2
+mget key1 key2
+// value 为整数时，加减 1
+incr key  
+decr key
+// 加减给定值
+incrby key increment   
+decrby key decrement
+// 设置过期时间
+expire key seconds
+// 查看剩余时间
+ttl key
+// O(1) 查看 value 的长度
+strlen key
+</code></pre>
+<h3 id="12-list">1.2 list</h3>
+<ul>
+<li><strong>应用场景</strong><br>
+底层是一个双向链表，可以用于实现消息队列。</li>
+<li><strong>常用命令</strong></li>
+</ul>
+<pre><code class="language-java">lpush key value...
+lpop key
+rpush key value...
+rpop key
+// 范围查看，-1 表示最后一个 value
+lrange key start stop
+llen key
+
+// 发布订阅
+subscribe channel...
+publish channel message
+</code></pre>
+<h3 id="13-hash">1.3 hash</h3>
+<ul>
+<li><strong>应用场景</strong><br>
+底层用数组+链表实现，本质是一个 string 类型的 field 和 value 的映射，类比于 HashMap&lt;key, HashMap&lt;field, value&gt;&gt;，适合存储对象，比如购物车。</li>
+<li><strong>常用指令</strong></li>
+</ul>
+<pre><code class="language-java">hset key field value
+hget key field
+hgetall key
+hkeys key
+hvals key
+</code></pre>
+<h3 id="14-set">1.4 set</h3>
+<ul>
+<li><strong>应用场景</strong><br>
+类比于 HashSet，元素不能重复，可以轻松地完成集合的交、并、差，方便实现共同关注、共同喜好等。</li>
+<li><strong>常用指令</strong></li>
+</ul>
+<pre><code class="language-java">sadd key member...
+smembers key
+sismember key member
+// 查看集合元素个数
+scard key
+// 求集合的交集，结果存放于 destination
+sinterstore destination key...
+// 交集
+sinter key...
+// 并集
+sunion key...
+// 差集
+sdiff key...
+</code></pre>
+<h3 id="15-sorted-set">1.5 sorted set</h3>
+<ul>
+<li><strong>应用场景</strong><br>
+与 set 相比，增加了一个权重参数，元素按照权重排序，元素不能重复，但权重可以；实时排行榜、直播间的送礼物排行榜等。</li>
+<li><strong>常用指令</strong></li>
+</ul>
+<pre><code class="language-java">zadd key score member ...
+zrange key start stop
+</code></pre>
+<ul>
+<li><strong>底层实现</strong><br>
+<img src="https://kobeduu.github.io/post-images/1610270582970.png" alt="" loading="lazy"></li>
+<li><strong>为什么不用红黑树</strong><br>
+跳表占用空间更小，实现简单，便于 zrange 命令查询，还可以通过调参有效调节执行效率和内存消耗的平衡。</li>
+</ul>
+<h3 id="16-hyperloglog">1.6 HyperLogLog</h3>
+<p>可用于做非精确基数统计，它的优点是：无论数据多大，只占用 12K 的空间，但有 0.81% 的误差率。</p>
+<h3 id="17-bitmap">1.7 BitMap</h3>
+<p>可用于精确基数统计，用一个 bit 位标记两种状态，节约空间，支持位运算。</p>
+<h2 id="2-redis-过期策略">2. Redis 过期策略</h2>
+<h3 id="21-惰性删除">2.1 惰性删除</h3>
+<p>访问 key 时，检查 key 是否过期，若已过期则删除。</p>
+<h3 id="22-定期扫描">2.2 定期扫描</h3>
+<p>Redis 会把设置了过期时间的 key 放入一个字典中，默认每秒执行10次过期扫描：</p>
+<ul>
+<li>从过期字典中随机选择 20 个 key；</li>
+<li>删除这 20 个中已过期的 key；</li>
+<li>如果过期的 key 的比例超过 25%，则重复步骤 1。</li>
+</ul>
+<h2 id="3-redis-淘汰策略">3. Redis 淘汰策略</h2>
+<p>当 Redis 占用的内存超出最大限制时，采用如下淘汰策略：</p>
+<ul>
+<li><strong>noeviction</strong><br>
+对可能导致内存超限的命令返回错误。</li>
+<li><strong>volatile-ttl</strong><br>
+在设置了过期时间的 key 中，淘汰剩余寿命最短的 key。</li>
+<li><strong>volatile-lru</strong><br>
+在设置了过期时间的 key 中，淘汰最近未使用的 key；这里是近似 LRU 算法，给每个 key 维护一个时间戳，每次随机选择一些并淘汰其中最久未访问的，好处是节约内存。</li>
+<li><strong>volatile-random</strong><br>
+在设置了过期时间的 key 中，随机选择一些 key 淘汰。</li>
+<li><strong>allkeys-lru</strong><br>
+在所有的 key 中，淘汰最近未使用的 key。</li>
+<li><strong>allkeys-random</strong><br>
+在所有的 key 中，随机选择一些 key 淘汰。</li>
+</ul>
+<h2 id="4-缓存失效问题">4. 缓存失效问题</h2>
+<h3 id="41-缓存穿透">4.1 缓存穿透</h3>
+<ul>
+<li><strong>场景</strong><br>
+大量查询根本不存在的数据，使得请求直达存储层，导致其负载过大。</li>
+<li><strong>解决方案</strong><br>
+(1) 缓存空对象，使得后面的查询在缓存层返回空值。<br>
+(2) 在缓存层前加布隆过滤器，过滤掉不存在的数据。</li>
+</ul>
+<h3 id="42-缓存击穿">4.2 缓存击穿</h3>
+<ul>
+<li><strong>场景</strong><br>
+一份热点数据在其缓存失效瞬间，大量请求直达存储层。</li>
+<li><strong>解决方案</strong><br>
+(1) 加互斥锁，一个线程访问后数据缓存将被重建。<br>
+(2) 不设置过期时间。</li>
+</ul>
+<h3 id="43-缓存雪崩">4.3 缓存雪崩</h3>
+<ul>
+<li><strong>场景</strong><br>
+由于某些原因，缓存层不能提供服务，导致所有请求直达存储层。</li>
+<li><strong>解决方案</strong><br>
+(1) 避免同时过期。<br>
+(2) 部署多个 Redis 实例。<br>
+(3) 构建多级缓存。<br>
+(4) 对存储层启用限流和降级措施。</li>
+</ul>
+<h2 id="5-redis-分布式锁">5. Redis 分布式锁</h2>
+<h3 id="51-获取锁">5.1 获取锁</h3>
+<pre><code class="language-java">SET resource_name my_random_val NX PX 30000
+</code></pre>
+<ul>
+<li><strong>NX</strong><br>
+仅在 key 不存在的时才会执行成功。</li>
+<li><strong>PX</strong><br>
+设置锁的自动过期时间，防止一直持有锁。</li>
+</ul>
+<h3 id="52-释放锁">5.2 释放锁</h3>
+<p>使用 Lua 脚本释放锁，防止一个线程因为超时释放锁后，又去释放了别的线程的锁。</p>
+<pre><code class="language-java">if redis.call('get', KEYS[1]) == ARGV[1] 
+    then 
+	    return redis.call('del', KEYS[1]) 
+else 
+	return 0 
+end
+</code></pre>
+<h2 id="6-redis-持久化机制">6. Redis 持久化机制</h2>
+<h3 id="61-快照持久化">6.1 快照持久化</h3>
+<p>Redis 可以通过创建快照来保存内存中某个时间点上的数据副本，这是 Redis 默认采用的持久化方式，redis.conf 有如下配置：</p>
+<pre><code class="language-text">save 900 1           
+# 在900秒之后，如果至少有1个key发生变化，Redis就会自动触发BGSAVE命令创建快照。
+
+save 300 10          
+# 在300秒之后，如果至少有10个key发生变化，Redis就会自动触发BGSAVE命令创建快照。
+
+save 60 10000       
+# 在60秒之后，如果至少有10000个key发生变化，Redis就会自动触发BGSAVE命令创建快照。
+</code></pre>
+<h3 id="62-aof-持久化">6.2 AOF 持久化</h3>
+<p>开启 AOF 持久化后，每执行一次修改指令，Redis 就会把命令写入硬盘上的 AOF 文件；Redis 支持三种不同的 AOF 持久化机制：</p>
+<pre><code class="language-text">appendfsync always    
+# 每次有数据修改时都会写入 AOF 文件,这样严重影响 Redis 的速度
+appendfsync everysec  
+# 每秒钟同步一次，显示地将多个写命令同步到硬盘
+appendfsync no        
+# 让操作系统决定何时进行同步
+</code></pre>
+<h2 id="7-redis-事务">7. Redis 事务</h2>
+<p>Redis 事务提供了将多个命令打包后统一顺序执行的功能，执行中途不能被打断；Redis 不支持回滚操作，因此不满足事务的原子性。</p>
+<h2 id="8-redis-的单线程模型">8. Redis 的单线程模型</h2>
+<figure data-type="image" tabindex="1"><img src="https://kobeduu.github.io/post-images/1610264559636.png" alt="" loading="lazy"></figure>
+<ul>
+<li>I/O 多路复用技术让 Redis 不需要额外创建线程来监听客户端的连接，降低了资源消耗。</li>
+<li>为什么不用多线程？<br>
+Redis 的性能瓶颈在于内存和网络 I/O，不在于 CPU，单线程方便维护，多线程存在上下文切换问题，甚至会影响性能。</li>
+</ul>
+<h2 id="9-缓存的读写策略">9. 缓存的读写策略</h2>
+<h3 id="91-旁路缓存模式">9.1 旁路缓存模式</h3>
+<p>cache 读到直接返回，否则从 DB 中读取并返回，同时存入 cache。<br>
+写操作先更新 DB，再删除 cache。</p>
+<h3 id="92-读写穿透">9.2 读写穿透</h3>
+<p>写操作同时更新 cache 和 DB。</p>
+<h3 id="93-异步缓存写入">9.3 异步缓存写入</h3>
+<p>写操作只更新 cache，异步批量的方式更新 DB。</p>
+<h2 id="10-redis-的高可用">10. Redis 的高可用</h2>
+<ul>
+<li><strong>主从架构</strong><br>
+<img src="https://kobeduu.github.io/post-images/1610266198189.webp" alt="" loading="lazy"></li>
+<li><strong>哨兵机制</strong><br>
+哨兵同时监视多个主从服务器，sentinel 每隔 1 秒向所有的服务器发送 ping 命令，如果某台服务器没有在规定的时间内返回消息，则标记为下线状态，领头 sentinel 从已下线的 master 的所有 slave 中挑选一个成为 master，其他 slave 从新的 master 复制数据。</li>
+</ul>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://kobeduu.github.io/post/mybatis-xue-xi-bi-ji/">
+                  <h3 class="post-title">
+                    MyBatis 学习笔记
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+<script>
+    renderMathInElement(document.body,
+   {
+              delimiters: [
+                  {left: "$$", right: "$$", display: true},
+                  {left: "$", right: "$", display: false}
+              ]
+          }
+  );
+</script>
+
+
+
+
+  </body>
+</html>

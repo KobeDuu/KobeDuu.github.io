@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>JAVA 进阶学习笔记 | KobeDuu</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://kobeduu.github.io/favicon.ico?v=1624698162368">
+<link rel="stylesheet" href="https://kobeduu.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="0. JVM 架构图
+
+1. 类的加载过程
+1.1 加载
+
+类加载器
+Bootstrap ClassLoader：加载 Java 核心库
+Extension ClassLoader：加载 Java 扩展库
+Application Class..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://kobeduu.github.io">
+        <img src="https://kobeduu.github.io/images/avatar.png?v=1624698162368" class="site-logo">
+        <h1 class="site-title">KobeDuu</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://kobeduu.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">JAVA 进阶学习笔记</h2>
+            <div class="post-date">2020-12-28</div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="0-jvm-架构图">0. JVM 架构图</h2>
+<figure data-type="image" tabindex="1"><img src="https://kobeduu.github.io/post-images/1614435474003.png" alt="" loading="lazy"></figure>
+<h2 id="1-类的加载过程">1. 类的加载过程</h2>
+<h3 id="11-加载">1.1 加载</h3>
+<ul>
+<li><strong>类加载器</strong><br>
+Bootstrap ClassLoader：加载 Java 核心库<br>
+Extension ClassLoader：加载 Java 扩展库<br>
+Application ClassLoader：根据 classpath 来加载 Java 类</li>
+<li><strong>双亲委派加载机制</strong><br>
+防止 Java 核心库被随意篡改，避免类的重复加载。</li>
+</ul>
+<h3 id="12-链接">1.2 链接</h3>
+<ul>
+<li><strong>验证</strong><br>
+确保加载的类信息符合 JVM 规范。</li>
+<li><strong>准备</strong><br>
+为静态变量分配内存空间，值为默认值，但 final 修饰的为字面值。</li>
+<li><strong>解析</strong><br>
+常量池中的符号引用替换为直接引用。</li>
+</ul>
+<h3 id="13-初始化">1.3 初始化</h3>
+<p>执行类构造器 clinit() 方法，由所有类变量的赋值动作和静态语句块合并而成，若父类未初始化，优先初始化父类。</p>
+<h2 id="2-运行时数据区">2. 运行时数据区</h2>
+<figure data-type="image" tabindex="2"><img src="https://kobeduu.github.io/post-images/1609212846578.png" alt="" loading="lazy"></figure>
+<h3 id="21-程序计数器">2.1 程序计数器</h3>
+<ul>
+<li>解释器通过改变计数器的值来读取下一个需要执行的字节码指令。</li>
+<li>线程切换后恢复到正确的执行位置。</li>
+</ul>
+<h3 id="22-java-虚拟机栈">2.2 Java 虚拟机栈</h3>
+<p>每一次函数调用都有一个对应的栈帧压入虚拟机栈，栈帧包含：</p>
+<ul>
+<li><strong>局部变量表</strong><br>
+存放方法参数和局部变量，在非 static 方法中，局部变量表的索引 0 处存放 this。</li>
+<li><strong>操作数栈</strong><br>
+是栈帧中用来计算的一块区域。</li>
+<li><strong>动态链接</strong><br>
+指向运行时常量池中该栈帧所属方法的引用，这个引用在运行期间转化为直接引用，来获取方法的元信息。</li>
+<li><strong>方法出口</strong><br>
+方法执行结束后应该回到的位置地址。</li>
+</ul>
+<h3 id="23-本地方法栈">2.3 本地方法栈</h3>
+<p>本地方法栈是为虚拟机执行 Native 方法，与虚拟机栈作用相似。</p>
+<h3 id="24-方法区">2.4 方法区</h3>
+<p>用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据，从 jdk1.8 开始，方法区的实现从永久代变成了元空间。</p>
+<ul>
+<li><strong>运行时常量池</strong><br>
+存放编译期生成的各种字面值和符号引用，从 jdk1.7 开始，字符串常量池移到了堆上。</li>
+</ul>
+<h3 id="25-堆">2.5 堆</h3>
+<p>几乎所有的对象实例和数组都在堆上分配，从 jdk1.7 开始默认开启逃逸分析，若对象未在方法外使用，那么对象可以在栈上分配；为了更好地回收和分配内存，堆又划分为：</p>
+<ul>
+<li><strong>新生代</strong><br>
+Eden 区：大部分情况下对象的出生地。<br>
+Survivor 区：GC 回收后 Eden 区幸存的对象会进入这里，年龄 +1。</li>
+<li><strong>老年代</strong><br>
+当对象的年龄达到一定的阈值，就会进入该区域。</li>
+</ul>
+<h2 id="3-对象的创建过程">3. 对象的创建过程</h2>
+<h3 id="31-类加载检查">3.1 类加载检查</h3>
+<p>检查类是否已被加载，如果没有，则先加载类。</p>
+<h3 id="32-分配内存">3.2 分配内存</h3>
+<p>并发情况下，采用<strong>CAS+失败重试</strong>保证线程安全，或者先在 Eden区给每个线程分配一块内存（TLAB），每个线程优先在 TLAB 上创建对象。</p>
+<ul>
+<li><strong>指针碰撞</strong><br>
+适用于堆内存规整的情况。</li>
+<li><strong>空闲列表</strong><br>
+适用于堆内存不规整的情况。</li>
+</ul>
+<h3 id="33-初始化零值">3.3 初始化零值</h3>
+<p>将分配到的内存空间都初始化为零值。</p>
+<h3 id="34-设置对象头">3.4 设置对象头</h3>
+<p>包括类型指针，锁状态，分代年龄，哈希码等。</p>
+<h3 id="35-执行-init-方法">3.5 执行 init 方法</h3>
+<p>执行程序员的初始化方法。</p>
+<h2 id="4-对象的内存布局">4. 对象的内存布局</h2>
+<figure data-type="image" tabindex="3"><img src="https://kobeduu.github.io/post-images/1609214834865.png" alt="" loading="lazy"></figure>
+<h2 id="5-jvm-垃圾回收">5. JVM 垃圾回收</h2>
+<h3 id="51-定位垃圾对象">5.1 定位垃圾对象</h3>
+<ul>
+<li><strong>引用计数法</strong><br>
+对象被引用一次，计数器+1，效率高但不能解决循环引用问题。</li>
+<li><strong>可达性分析</strong><br>
+GC Roots 可以到达的对象为存活对象。</li>
+<li><strong>GC Roots</strong><br>
+虚拟机栈中引用的对象<br>
+方法区中常量引用的对象<br>
+方法区中类静态属性引用的对象</li>
+<li><strong>强引用</strong><br>
+new 出来的对象都是强引用，内存不足时，虚拟机宁愿抛出异常，也不会回收。</li>
+<li><strong>软引用</strong><br>
+内存不足时，JVM 就会回收这些对象的内存。</li>
+<li><strong>弱引用</strong><br>
+垃圾回收器扫描内存区域时，不管内存是否充足，都会回收这些对象的内存。</li>
+<li><strong>虚引用</strong><br>
+主要用来跟踪对象被垃圾回收的活动，必须和引用队列（ReferenceQueue）联合使用。</li>
+</ul>
+<h3 id="52-垃圾收集算法">5.2 垃圾收集算法</h3>
+<ul>
+<li><strong>标记-清除</strong><br>
+会产生大量不连续的内存碎片，支持并发(CMS)。</li>
+<li><strong>标记-整理</strong><br>
+解决了内存碎片问题。</li>
+<li><strong>复制算法</strong><br>
+效率高，没有内存碎片，但浪费内存。</li>
+<li><strong>分代收集算法</strong><br>
+每次收集时，新生代都有大量对象死去，采用复制算法，老年代的对象存活率高，采用标记-清除或标记-整理算法。</li>
+</ul>
+<h3 id="53-垃圾收集器">5.3 垃圾收集器</h3>
+<figure data-type="image" tabindex="4"><img src="https://kobeduu.github.io/post-images/1613547958645.PNG" alt="" loading="lazy"></figure>
+<h4 id="531-cms-收集器">5.3.1 CMS 收集器</h4>
+<figure data-type="image" tabindex="5"><img src="https://kobeduu.github.io/post-images/1609307633206.jpg" alt="" loading="lazy"></figure>
+<ul>
+<li><strong>初始标记</strong><br>
+暂停其他线程，记录与 GC Roots 直接相连的对象。</li>
+<li><strong>并发标记</strong><br>
+同时开启 GC 和用户线程。</li>
+<li><strong>重新标记</strong><br>
+修正并发标记期间因为用户程序继续运行而导致标记产生变动的对象的标记记录。</li>
+<li><strong>并发清除</strong><br>
+GC 线程对未标记的区域做清除，由于用户程序并发执行，导致此时产生的浮动垃圾无法及时处理。</li>
+<li><strong>优点</strong><br>
+并发收集，低停顿。</li>
+<li><strong>缺点</strong><br>
+无法处理浮动的垃圾，<strong>标记-清除</strong>算法容易产生大量内存碎片；并发过程中，老年代还未收集完成或存在内存碎片，导致新生代因内存不足而晋升失败导致提前触发 Full GC，解决办法是 CMS 尽早 GC，预留部分空间给用户线程，一定次数后进行内存整理。</li>
+</ul>
+<h4 id="532-g1-收集器">5.3.2 G1 收集器</h4>
+<p><img src="https://kobeduu.github.io/post-images/1609313893745.jpg" alt="" loading="lazy"><br>
+G1 把堆内存划分为大小相等的独立区域，跟踪各个区域里垃圾堆积的价值大小，每次优先收集价值大的区域，以区域为单位进行垃圾回收实现了停顿时间的参数可控，也会对区域进行复制整理。</p>
+<h2 id="6-java-反射机制">6. Java 反射机制</h2>
+<blockquote>
+<p>程序运行状态中，根据参数，可以构造任意一个类的对象，了解任意一个类的成员变量和方法。</p>
+</blockquote>
+<ul>
+<li><strong>Class 对象</strong><br>
+.class字节码文件加载完成后，JVM 会在堆上自动创建一个对应的 Class 对象，通过此对象可以获得类的基本信息、成员变量、方法等。</li>
+<li><strong>Field 对象</strong><br>
+获取类的成员变量。</li>
+<li><strong>Method 对象</strong><br>
+获取类的方法。</li>
+<li><strong>Constructor 对象</strong><br>
+获取类的构造器。</li>
+</ul>
+<h2 id="7-jdk-动态代理和-cglib">7. JDK 动态代理和 CGlib</h2>
+<ul>
+<li><strong>JDK 动态代理</strong><br>
+通过实现接口和 Java 反射机制实现代理，被代理对象必须是接口的实现类。</li>
+<li><strong>CGlib 动态代理</strong><br>
+通过继承方式实现代理，在子类中拦截所有父类方法的调用并顺势织入横切逻辑，final 修饰的不能代理。</li>
+</ul>
+<pre><code class="language-JAVA">import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+
+public class Main{
+    public static void main(String[] args){
+        Person dzl = new Dzl();
+        Person personProxy = (Person) Proxy.newProxyInstance(dzl.getClass().getClassLoader(), dzl.getClass().getInterfaces(), new PersonInvocation(dzl));
+        personProxy.eat(&quot;meet&quot;);
+        personProxy.work(&quot;code&quot;);
+        personProxy.sleep(8);
+    }
+}
+
+interface Person{
+    void eat(String food);
+    void work(String thing);
+    void sleep(int time);
+}
+class Dzl implements Person{
+
+    @Override
+    public void eat(String food) {
+        System.out.println(&quot;eat &quot; + food);
+    }
+
+    @Override
+    public void work(String thing) {
+        System.out.println(&quot;do &quot; + thing);
+    }
+
+    @Override
+    public void sleep(int time) {
+        System.out.println(&quot;sleep &quot; + time);
+    }
+}
+
+class PersonInvocation implements InvocationHandler{
+
+    private Person target;
+    public PersonInvocation(Person target){
+        this.target = target;
+    }
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        before();
+        method.invoke(target, args);
+        after();
+        return null;
+    }
+
+    private void before() {
+        System.out.println(&quot;before&quot;);
+    }
+
+    private void after(){
+        System.out.println(&quot;after&quot;);
+    }
+}
+</code></pre>
+<h2 id="8-多线程并发编程">8. 多线程并发编程</h2>
+<h3 id="81-sleep-yied-wait-和-join-的区别">8.1 sleep、yied、wait 和 join 的区别</h3>
+<ul>
+<li><strong>sleep</strong><br>
+属于 Thread 类，不会释放锁，只会阻塞线程。</li>
+<li><strong>yied</strong><br>
+属于 Thread 类，不会释放锁，线程重回就绪状态。</li>
+<li><strong>wait</strong><br>
+属于 Object 类，用于线程间通信，会释放对象锁，使用前必须获得对象锁，即在 synchronized 修饰的代码块中使用。</li>
+<li><strong>join</strong><br>
+属于 Thread 类，用于线程间同步。</li>
+</ul>
+<h3 id="82-synchronized-关键字">8.2 synchronized 关键字</h3>
+<p>通过获取对象监视器 monitor，解决了多线程之间访问资源的同步性；JDK 1.6之后对 synchronized 做了优化：</p>
+<ul>
+<li><strong>偏向锁</strong><br>
+通过在对象头中记录线程ID 解决加锁问题，适用于一个线程的同步场景。</li>
+<li><strong>轻量级锁</strong><br>
+通过 CAS 和自旋操作解决加锁问题，避免因阻塞和唤醒线程而影响性能。</li>
+<li><strong>重量级锁</strong><br>
+当自旋到达一定次数时，轻量级锁升级为重量级锁，避免浪费 CPU 资源。</li>
+</ul>
+<h3 id="83-volatile-关键字">8.3 volatile 关键字</h3>
+<p>禁止 JVM 的指令重排；保证多线程之间共享变量的可见性。</p>
+<h3 id="84-线程池">8.4 线程池</h3>
+<p>使用线程池可以避免线程频繁的创建和销毁，降低资源消耗，提高线程的可管理性。</p>
+<ul>
+<li><strong>实现 Runnable 接口和 Callable 接口的区别</strong><br>
+Runnable 接口不会返回结果或抛出检查异常，但是 Callable 接口可以。</li>
+<li><strong>执行 execute() 方法和 submit() 方法的区别</strong><br>
+需要提交有返回值的任务时用 submit()。</li>
+</ul>
+<h3 id="85-threadpoolexecutor-构造函数的重要参数">8.5 ThreadPoolExecutor 构造函数的重要参数</h3>
+<ul>
+<li><strong>corePoolSize</strong><br>
+核心线程的数量，当前线程数（poolSize）小于核心线程数时，即使有空闲线程，线程池也会优先创建新线程处理。</li>
+<li><strong>maxPoolSize</strong><br>
+最大线程数，当 poolSize == corePoolSize 且队列已满时，线程池会创建新线程来处理，当 poolSize == maxPoolSize 且队列已满时，线程池会拒绝处理抛出异常。</li>
+<li><strong>allowCoreThreadTimeout</strong><br>
+允许核心线程超时。</li>
+<li><strong>keepAliveTime</strong><br>
+线程空闲存活时间。</li>
+</ul>
+<h3 id="86-atomic-原子类">8.6 Atomic 原子类</h3>
+<p>底层通过 CAS  和 volatile 关键字实现，CAS 保证同步，volatile 保证任何线程任何时刻拿到的都是最新值，从而避免了 synchronized 的高开销。</p>
+<h3 id="87-aqs">8.7 AQS</h3>
+<p>AQS 是一个用来构建锁和同步器的框架，使用 AQS 能简单且高效地构造出应用广泛的大量的同步器。</p>
+<h3 id="88-threadlocal">8.8 ThreadLocal</h3>
+<ul>
+<li><strong>应用场景</strong><br>
+变量在线程之间无需可见共享，为线程私有。</li>
+<li><strong>基本原理</strong><br>
+每个 Thread 中的 ThreadLocalMap 保存了 &lt;threadLocal, value&gt; 的键值对, 通过 ThreadLocal 的 get()，set() 方法统一操作 value。</li>
+</ul>
+<h3 id="89-synchronized-和-lock-的区别">8.9 Synchronized 和 Lock 的区别</h3>
+<ul>
+<li>synchronized 是在 JVM 层面实现的，系统监控锁的释放与否，lock 是 JDK 代码实现的，需要手动释放锁。</li>
+<li>lock 的功能更强大，支持读写锁，公平锁，可中断，synchronized 不可中断。</li>
+</ul>
+<h2 id="9-核心容器">9. 核心容器</h2>
+<h3 id="91-arraylist">9.1 ArrayList</h3>
+<p>底层通过 Object[] 存储，线程不安全，Vector 线程安全。</p>
+<ul>
+<li><strong>扩容机制</strong><pre><code class="language-java">   // 要分配的最大数组大小
+  private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
+
+  /**
+   * 扩容的核心方法
+   */
+  private void grow(int minCapacity) {
+      // oldCapacity 为旧容量，newCapacity 为新容量
+      int oldCapacity = elementData.length;
+      // 将新容量更新为旧容量的 1.5 倍
+      int newCapacity = oldCapacity + (oldCapacity &gt;&gt; 1);
+      // 若新容量小于最小需要的容量，那么就把最小需要的容量当作数组的新容量
+      if (newCapacity - minCapacity &lt; 0)
+          newCapacity = minCapacity;
+     // 如果新容量大于 MAX_ARRAY_SIZE，执行 hugeCapacity() 方法来比较 minCapacity 和 MAX_ARRAY_SIZE
+     //如果 minCapacity 大于 MAX_ARRAY_SIZE，则新容量为 Integer.MAX_VALUE，否则新容量大小为 MAX_ARRAY_SIZE
+      if (newCapacity - MAX_ARRAY_SIZE &gt; 0)
+          newCapacity = hugeCapacity(minCapacity);
+      elementData = Arrays.copyOf(elementData, newCapacity);
+  }
+</code></pre>
+</li>
+<li><strong>可以通过 ensureCapacity(int minCapacity) 方法一次性确保最小容量，避免频繁扩容</strong></li>
+</ul>
+<h3 id="92-linklist">9.2 LinkList</h3>
+<p>实现了 List 接口和 Deque 接口的双端链表，不是线程安全的。</p>
+<ul>
+<li><strong>常用方法</strong><br>
+add(index, E)<br>
+remove(index)<br>
+poll() ： 弹出第一个元素<br>
+offer(E)：尾部添加<br>
+push (E)：头部添加<br>
+pollLast()：弹出最后一个元素</li>
+</ul>
+<h3 id="93-hashmap">9.3 HashMap</h3>
+<pre><code class="language-java">public class HashMap&lt;K,V&gt; extends AbstractMap&lt;K,V&gt; implements Map&lt;K,V&gt;, Cloneable, Serializable {
+    // 序列号
+    private static final long serialVersionUID = 362498820763181265L;    
+    // 默认的初始容量是16
+    static final int DEFAULT_INITIAL_CAPACITY = 1 &lt;&lt; 4;   
+    // 最大容量
+    static final int MAXIMUM_CAPACITY = 1 &lt;&lt; 30; 
+    // 默认的填充因子
+    static final float DEFAULT_LOAD_FACTOR = 0.75f;
+    // 当桶上的结点数大于这个值时会转成红黑树
+    static final int TREEIFY_THRESHOLD = 8; 
+    // 当桶上的结点数小于这个值时树转链表
+    static final int UNTREEIFY_THRESHOLD = 6;
+    // 桶中结构转化为红黑树对应的 table 的最小大小
+    static final int MIN_TREEIFY_CAPACITY = 64;
+    // 存储元素的数组，总是 2 的幂次
+    transient Node&lt;k,v&gt;[] table; 
+    // 存放具体元素的集
+    transient Set&lt;map.entry&lt;k,v&gt;&gt; entrySet;
+    // 存放元素的个数，注意这个不等于数组的长度。
+    transient int size;
+    // 每次扩容和更改 map 结构的计数器
+    transient int modCount;   
+    // 临界值(threshold = capacity * loadFactor), 当 size 大于临界值时，会进行扩容
+    int threshold;  
+    // 加载因子, 控制数组存放数据的疏密程度
+    final float loadFactor;
+}
+
+/**
+ * Returns a power of two size for the given target capacity.
+ */
+static final int tableSizeFor(int cap) {
+    int n = cap - 1;
+    n |= n &gt;&gt;&gt; 1;
+    n |= n &gt;&gt;&gt; 2;
+    n |= n &gt;&gt;&gt; 4;
+    n |= n &gt;&gt;&gt; 8;
+    n |= n &gt;&gt;&gt; 16;
+    return (n &lt; 0) ? 1 : (n &gt;= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
+}
+</code></pre>
+<ul>
+<li><strong>扩容机制</strong><br>
+每次扩容为原来的两倍，便于通过位运算代替取模。</li>
+<li><strong>为什么链表长度大于 8 且数组长度大于等于 64 时转换为红黑树</strong><br>
+树节点占用空间更大，平衡时间和空间，且理想情况下随机 hashCode 算法使得链表长度到达 8 的概率很低。</li>
+</ul>
+<h3 id="94-concurrenthashmap">9.4 ConcurrentHashMap</h3>
+<p>Java7 采用分段锁机制， 底层为 Segment + HashEntry 数组 + 链表实现，每一个 Segment 同时只能有一个线程操作。<br>
+Java8 采用 Synchronized + CAS 机制，底层为 Node 数组 + 链表/红黑树实现。</p>
+<h2 id="10-手撕代码">10. 手撕代码</h2>
+<h3 id="101-三个线程交替打印abc">10.1 三个线程交替打印ABC</h3>
+<pre><code class="language-java">public class Main {
+
+    private volatile int state;
+    private volatile int times;
+    
+    public Main(int state, int times) {
+        this.state = state;
+        this.times = times;
+    }
+
+    public void printName(String name, int targetState){
+        for (int i = 0; i &lt; times; ++i) {
+            synchronized (this) {
+                while (state % 3 != targetState) {
+                    try {
+                        this.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                System.out.print(name);
+                state += 1;
+                this.notifyAll();
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Main m = new Main(0, 100);
+        new Thread(()-&gt;{
+            m.printName(&quot;A&quot;, 0);
+        }).start();
+        new Thread(()-&gt;{
+            m.printName(&quot;B&quot;, 1);
+        }).start();
+        new Thread(()-&gt;{
+            m.printName(&quot;C&quot;, 2);
+        }).start();
+    }
+}
+</code></pre>
+<h3 id="102-生产者消费者模式">10.2 生产者消费者模式</h3>
+<pre><code class="language-java">import java.util.Random;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+
+public class Main{
+    public static void main(String[] args) {
+        BlockingQueue&lt;Long&gt; queue = new ArrayBlockingQueue&lt;&gt;(10);
+        new Thread(new Producer(queue)).start();
+        new Thread(new Customer(queue)).start();
+    }
+
+    private static class Producer implements Runnable{
+        BlockingQueue&lt;Long&gt; blockingQueue;
+        public Producer(BlockingQueue&lt;Long&gt; blockingQueue) {
+            this.blockingQueue = blockingQueue;
+        }
+        @Override
+        public void run() {
+            while (true) {
+                try {
+                    Thread.sleep(new Random().nextInt(1000));
+                    blockingQueue.put(System.currentTimeMillis());
+                    System.out.println(Thread.currentThread().getName() + &quot; 生产了一条数据，剩余 &quot; + blockingQueue.size());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private static class Customer implements Runnable{
+        BlockingQueue&lt;Long&gt; blockingQueue;
+        public  Customer(BlockingQueue&lt;Long&gt; blockingQueue) {
+            this.blockingQueue = blockingQueue;
+        }
+        @Override
+        public void run() {
+            while (true) {
+                try {
+                    Thread.sleep(new Random().nextInt(1000));
+                    blockingQueue.take();
+                    System.out.println(Thread.currentThread().getName() + &quot; 消费了-条数据，剩余 &quot; + blockingQueue.size());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+}
+</code></pre>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://kobeduu.github.io/post/she-ji-mo-shi-xue-xi-bi-ji/">
+                  <h3 class="post-title">
+                    设计模式学习笔记
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+<script>
+    renderMathInElement(document.body,
+   {
+              delimiters: [
+                  {left: "$$", right: "$$", display: true},
+                  {left: "$", right: "$", display: false}
+              ]
+          }
+  );
+</script>
+
+
+
+
+  </body>
+</html>

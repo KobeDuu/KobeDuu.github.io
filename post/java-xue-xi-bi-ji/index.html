@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>JAVA 基础学习笔记 | KobeDuu</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://kobeduu.github.io/favicon.ico?v=1624698162368">
+<link rel="stylesheet" href="https://kobeduu.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="1. 语法基础
+
+2. 面向对象
+2.0 类
+一个 Java 文件最多只有一个 public 修饰的类；每个类隐式继承 Object 类。
+2.1 封装
+隐藏实现细节，提高程序的安全性。
+2.2 继承
+继承一个类，就可以获得这个类的属性和方..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://kobeduu.github.io">
+        <img src="https://kobeduu.github.io/images/avatar.png?v=1624698162368" class="site-logo">
+        <h1 class="site-title">KobeDuu</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://kobeduu.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">JAVA 基础学习笔记</h2>
+            <div class="post-date">2020-12-13</div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="1-语法基础">1. 语法基础</h2>
+<figure data-type="image" tabindex="1"><img src="https://kobeduu.github.io/post-images/1607925432291.png" alt="" loading="lazy"></figure>
+<h2 id="2-面向对象">2. 面向对象</h2>
+<h3 id="20-类">2.0 类</h3>
+<p>一个 Java 文件最多只有一个 public 修饰的类；每个类隐式继承 Object 类。</p>
+<h3 id="21-封装">2.1 封装</h3>
+<p>隐藏实现细节，提高程序的安全性。</p>
+<h3 id="22-继承">2.2 继承</h3>
+<p>继承一个类，就可以获得这个类的属性和方法，提高程序的复用性。</p>
+<h3 id="23-多态">2.3 多态</h3>
+<p>在需要父类的地方可以传入子类的对象，提高程序的扩展性。</p>
+<h3 id="24-关键字">2.4 关键字</h3>
+<figure data-type="image" tabindex="2"><img src="https://kobeduu.github.io/post-images/1607925114468.png" alt="" loading="lazy"></figure>
+<ul>
+<li><strong>this</strong><br>
+代指当前对象，一般用于成员变量和局部变量同名发生歧义时，只能出现在非 static 修饰的代码中。</li>
+<li><strong>super</strong><br>
+相当于指向当前对象的父类，用于当前对象访问父类对象的成员，子类的所有构造方法中会隐式调用super()。</li>
+<li><strong>static</strong><br>
+static 修饰的成员属于类，被对象共享，其修饰的成员变量只在类的第一次加载中初始化。</li>
+<li><strong>final</strong><br>
+final 修饰的类不能被继承，修饰的方法不能被重写，修饰的变量初始化后不能被修改，修饰的引用类型变量的地址不能改变，但这个地址里的内容可以改变，static final 修饰的常量声明时必须初始化，在编译期完成替换。</li>
+<li><strong>abstract</strong><br>
+abstract 修饰的类为抽象类，抽象类不能实例化；修饰的方法为抽象方法，抽象方法没有方法体，包含抽象方法的类必须声明为抽象类，若子类不是抽象类，则必须实现父类的抽象方法，abstract 不能与 final 同时使用。</li>
+<li><strong>interface</strong><br>
+接口内部定义的所有方法都是抽象方法，但 Java 8 对其进行了改进，允许接口中定义并实现默认方法和静态方法，也允许有常量；一个接口可以继承多个接口。</li>
+<li><strong>implements</strong><br>
+用于实现接口，一个类可以实现多个接口，可以获得接口里的的常量和方法。</li>
+</ul>
+<h3 id="25-jvm的内存模型">2.5 JVM的内存模型</h3>
+<figure data-type="image" tabindex="3"><img src="https://kobeduu.github.io/post-images/1607939011014.jfif" alt="" loading="lazy"></figure>
+<ul>
+<li><strong>堆</strong><br>
+线程共享；所有的对象实例以及数组都在堆上分配，回收器主要管理的对象。</li>
+<li><strong>方法区</strong><br>
+线程共享；存储已加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。</li>
+<li><strong>方法栈</strong><br>
+线程私有；存储局部变量表、操作栈、动态链接、方法出口、对象指针等信息。</li>
+<li><strong>本地方法栈</strong><br>
+线程私有；为虚拟机使用到的 Native 方法服务。</li>
+<li><strong>程序计数器</strong><br>
+线程私有；它可以看作是当前线程所执行的字节码的行号指示器，指向下一条要执行的指令。</li>
+</ul>
+<h3 id="26-jvm的回收机制">2.6 JVM的回收机制</h3>
+<figure data-type="image" tabindex="4"><img src="https://kobeduu.github.io/post-images/1607939506430.png" alt="" loading="lazy"></figure>
+<ul>
+<li>当一个对象不再被任何变量引用时，它就变成了垃圾，等待垃圾回收器的回收。</li>
+<li>垃圾回收器回收某个对象的内存之前，会先调用它的 finalize() 方法，若被重新引用，则恢复可达状态。</li>
+</ul>
+<h2 id="3-java-核心api">3. Java 核心API</h2>
+<h3 id="31-scanner-类">3.1 Scanner 类</h3>
+<p>Scanner 是一个文本扫描器，它可以从文件、输入流、字符串中解析出基本类型值和字符串类型值，默认使用空白作为多个输入项的分隔符。</p>
+<h3 id="32-object-类">3.2 Object 类</h3>
+<ul>
+<li><strong>equals()</strong><br>
+判断两个对象的内容是否相等</li>
+<li><strong>hashCode()</strong><br>
+返回此对象的哈希值，默认实现是返回该对象在内存中的物理地址。</li>
+<li><strong>toString()</strong><br>
+返回此对象的字符串表现形式</li>
+</ul>
+<h3 id="33-包装类">3.3 包装类</h3>
+<p>将基本数据类型封装为类，该类实例化后实例变量不可改变，其中 Character、Boolean 继承 Object 类，其他继承 Number 类。</p>
+<h3 id="34-string-类">3.4 String 类</h3>
+<figure data-type="image" tabindex="5"><img src="https://kobeduu.github.io/post-images/1608019474230.png" alt="" loading="lazy"></figure>
+<h3 id="35-stringbuilder-和-stringbuffer">3.5 StringBuilder 和 StringBuffer</h3>
+<p>String 类实例化后实例变量不可改变，强制改变只会新创建一个对象，拼接许多字符串时会消耗大量内存</p>
+<ul>
+<li>二者都是封装可变的字符串，对象创建后可以改变封装的字符序列。</li>
+<li>StringBuilder 是非线程安全的，性能较好。</li>
+<li>StringBuffer 是线程安全的，性能相对较低。</li>
+</ul>
+<h3 id="36-异常">3.6 异常</h3>
+<ul>
+<li><strong>finally</strong><br>
+程序总会执行 finally 中的代码，在 return 之前执行。</li>
+<li><strong>throw</strong><br>
+用于程序主动抛出一个异常。</li>
+<li><strong>throws</strong><br>
+用于标识某方法可能抛出的异常，必须位于方法签名之后。</li>
+</ul>
+<h2 id="4-集合">4. 集合</h2>
+<h3 id="41">4.1</h3>
+<figure data-type="image" tabindex="6"><img src="https://kobeduu.github.io/post-images/1608093095205.png" alt="" loading="lazy"></figure>
+<ul>
+<li><strong>Iterator</strong><br>
+Iterator（迭代器）是一个接口，用于遍历 Collection 中的元素，可以在迭代的时候删除数据。</li>
+<li><strong>HashSet</strong><br>
+不能保证元素的排列顺序，集合元素可以为 null，它是非线程安全的,底层是 HashMap。</li>
+<li><strong>TreeSet</strong><br>
+底层通过红黑树来维护对象的排序顺序，对象必须实现 Comparable 接口，程序员可以定制排序规则。</li>
+<li><strong>ArrayList</strong><br>
+ArrayList 是非线程安全的，内部封装了一个长度可变的 Object[] 数组，扩容机制是将原数组拷贝到另一块内存。</li>
+<li><strong>Vector</strong><br>
+Vector 也是基于数组实现的，并且保证了线程安全，但性能不如 ArrayList。</li>
+</ul>
+<h3 id="42">4.2</h3>
+<figure data-type="image" tabindex="7"><img src="https://kobeduu.github.io/post-images/1608093105234.png" alt="" loading="lazy"></figure>
+<ul>
+<li><strong>HashMap</strong><br>
+线程不安全，key、value 允许为 null。</li>
+<li><strong>Hashtable</strong><br>
+线程安全，key、value 不允许为 null。</li>
+<li><strong>TreeMap</strong><br>
+按照 key 对键值对排序，key 应该是同一类型，且必须实现 Comparable 接口。</li>
+<li><strong>Properties</strong><br>
+存储属性名与属性值的文件，如“.ini”、“.properties”文件。</li>
+</ul>
+<h3 id="43-collections">4.3 Collections</h3>
+<ul>
+<li>Collections 是一个操作集合的工具类。</li>
+<li>提供了针对 List 集合众多的排序方法。</li>
+<li>提供了众多的查找和替换元素的方法。</li>
+<li>提供三类方法（空的/唯一/只读）来创建一个不可变的集合。</li>
+<li>将指定集合包装成线程同步的集合，以解决线程安全问题。</li>
+</ul>
+<h2 id="5-泛型">5. 泛型</h2>
+<blockquote>
+<p>Object 也能实现泛型，但会丢失对象的类型信息，通配符相当于实现泛型的多态，一般用于方法，且只能修改。</p>
+</blockquote>
+<h3 id="51-泛型的定义">5.1 泛型的定义</h3>
+<pre><code>class Foo&lt;T&gt;{ private T data; }    //  泛型类
+class Sub extends Foo&lt;String&gt;{ ... }
+private static &lt;T&gt; void test(T[] array, List&lt;T&gt; list) { ... }    // 泛型方法 
+</code></pre>
+<h3 id="52-泛型上限">5.2 泛型上限</h3>
+<pre><code>class Foo&lt;T extends Number&gt;{ ... }
+</code></pre>
+<h3 id="53-类型通配符">5.3 类型通配符</h3>
+<pre><code>void test(List&lt;?&gt; list) { ... }
+</code></pre>
+<h3 id="54-类型通配符的上限">5.4 类型通配符的上限</h3>
+<pre><code>void test(List&lt;? extends Number&gt; list) { ... }
+</code></pre>
+<h2 id="6-io-流">6. IO 流</h2>
+<figure data-type="image" tabindex="8"><img src="https://kobeduu.github.io/post-images/1608176236849.png" alt="" loading="lazy"></figure>
+<h3 id="61-文件流">6.1 文件流</h3>
+<h3 id="62-缓冲流">6.2 缓冲流</h3>
+<p>缓冲流内部维护了一个缓冲区，它每次读取/存放一批数据将缓冲区填满，通过与缓冲区交互，减少与设备的交互次数，从而提高效率。</p>
+<h3 id="63-转换流">6.3 转换流</h3>
+<p>将字节流转换为字符流；Scanner 底层先将 System.in 包装成 InputStreamReader，再将其包装成 BufferedReader 流。</p>
+<h3 id="64-打印流">6.4 打印流</h3>
+<p>System.out 底层使用 PrintStream。</p>
+<h3 id="65-对象流">6.5 对象流</h3>
+<p>用于对象的序列化和反序列化。</p>
+<ul>
+<li><strong>序列化</strong><br>
+将 Java 对象转换成字节序列，写入 IO 流中，可以保存在磁盘上，也可以在网络中传输；实现 Serializable 接口的 Class 才是可序列化的。</li>
+<li><strong>反序列化</strong><br>
+从 IO 流中恢复该 Java 对象，当 Class 改变时，只有序列化版本号相同才能被反序列化。</li>
+<li><strong>序列化规则</strong><br>
+该对象中引用类型的成员变量也是可序列化的；一个对象只会被序列化一次，再次序列化只会输出它的序列号。</li>
+<li><strong>transient</strong><br>
+修饰的成员变量不能被序列化。</li>
+</ul>
+<h3 id="66-randomaccessfile">6.6 RandomAccessFile</h3>
+<p>RAF 允许自由定位文件指针来支持随机访问文件。</p>
+<h3 id="67-nio">6.7 NIO</h3>
+<p>采用内存映射文件的方式来处理输入和输出，比传统的方式高效。</p>
+<h3 id="68-charset">6.8 Charset</h3>
+<p>用来处理字符序列与字节序列之间不同编码方式的转换。</p>
+<h2 id="7-线程">7. 线程</h2>
+<h3 id="71-创建线程的方式">7.1 创建线程的方式</h3>
+<ul>
+<li><strong>继承 Thread 类</strong><br>
+定义 Thread 的的子类，并重写该类的 run() 方法。</li>
+<li><strong>实现 Runnable 接口</strong><br>
+定义 Runnable 接口的实现类，实现该接口的 run() 方法，并以该实现类的实例来创建 Thread 对象。</li>
+<li><strong>实现 Callable 接口</strong><br>
+定义 Callable 接口的实现类，实现该接口的 call() 方法，可以调用 Funture 对象的 get() 方法获取线程的返回值。</li>
+</ul>
+<h3 id="72-线程的生命周期">7.2 线程的生命周期</h3>
+<figure data-type="image" tabindex="9"><img src="https://kobeduu.github.io/post-images/1608259517374.png" alt="" loading="lazy"></figure>
+<h3 id="73-线程控制">7.3 线程控制</h3>
+<ul>
+<li><strong>线程休眠</strong><br>
+sleep()，线程进入阻塞状态。</li>
+<li><strong>线程等待</strong><br>
+join()，调用方等待该线程直至它死亡。</li>
+<li><strong>线程优先级</strong><br>
+优先级越高的线程则拥有较多的运行机会。</li>
+</ul>
+<h3 id="74-线程同步">7.4 线程同步</h3>
+<ul>
+<li><strong>同步代码块</strong></li>
+</ul>
+<pre><code>synchronized(obj) { ... }  
+// obj 代表锁定的目标（同步监视器）
+</code></pre>
+<ul>
+<li><strong>同步方法</strong></li>
+</ul>
+<pre><code>public synchronized void fun() { ... }
+// 无需显示指定同步监视器，在成员方法中默认是 this，在静态方法中默认为当前类
+</code></pre>
+<ul>
+<li>
+<p><strong>synchronized 的缺点</strong><br>
+加解锁固化，不够灵活；某个线程被阻塞，其他线程只能等待；读-读不能并发。</p>
+</li>
+<li>
+<p><strong>Lock 接口</strong></p>
+</li>
+</ul>
+<pre><code>void lock()   // 获取锁
+void unlock()   // 释放锁
+boolean tryLock(long time, TimeUnit unit)   // 获取锁，超时返回 false
+</code></pre>
+<ul>
+<li><strong>ReadWriteLock 接口</strong></li>
+</ul>
+<pre><code>Lock readLock()   // 返回用于读取的锁
+Lock writeLock()   // 放回用于写入的锁
+</code></pre>
+<h3 id="75-避免死锁">7.5 避免死锁</h3>
+<ul>
+<li>避免同一线程对多个同步监视器进行锁定。</li>
+<li>如果多个线程需要对多个同步监视器加锁，应保证它们以相同的顺序请求加锁。</li>
+<li>调用 Lock 对象的 tryLock() 方法，当超出指定时间后自动释放锁。</li>
+</ul>
+<h3 id="76-线程通信">7.6 线程通信</h3>
+<ul>
+<li><strong>synchronized</strong><br>
+<img src="https://kobeduu.github.io/post-images/1608271819627.png" alt="" loading="lazy"></li>
+<li><strong>阻塞队列</strong><br>
+BlockingQueue，尝试加入队列时，若队列已满，则阻塞该线程；尝试出队列时，若队列已空，则阻塞该线程。</li>
+</ul>
+<h3 id="77-线程池">7.7 线程池</h3>
+<blockquote>
+<p>通过线程池可以实现线程的复用，提高性能；控制程序中线程的数量，避免系统超负荷而崩溃。</p>
+</blockquote>
+<ul>
+<li><strong>Executors</strong><br>
+工厂类，用于创建线程池。</li>
+<li><strong>ExecutorService</strong><br>
+普通线程池。</li>
+<li><strong>ScheduledExecutorService</strong><br>
+可执行定时任务的线程池。</li>
+<li><strong>ForkJoinPool</strong><br>
+是 ExecutorService 的实现类，旨在充分利用多核资源。</li>
+</ul>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://kobeduu.github.io/post/mysql-xue-xi-bi-ji/">
+                  <h3 class="post-title">
+                    MySql 学习笔记
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+<script>
+    renderMathInElement(document.body,
+   {
+              delimiters: [
+                  {left: "$$", right: "$$", display: true},
+                  {left: "$", right: "$", display: false}
+              ]
+          }
+  );
+</script>
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>MyBatis 学习笔记 | KobeDuu</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://kobeduu.github.io/favicon.ico?v=1624698162368">
+<link rel="stylesheet" href="https://kobeduu.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="1. #{} 和 ${} 的区别
+
+#{} 被解析为一条 SQL 的参数占位符 ?，通过调用 PreparedStatement 的 set 方法来赋值，可以防止 SQL 注入问题。
+${} 在动态 SQL 解析阶段将会进行字符串拼接，字符..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://kobeduu.github.io">
+        <img src="https://kobeduu.github.io/images/avatar.png?v=1624698162368" class="site-logo">
+        <h1 class="site-title">KobeDuu</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://kobeduu.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">MyBatis 学习笔记</h2>
+            <div class="post-date">2020-12-16</div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="1-和-的区别">1. #{} 和 ${} 的区别</h2>
+<ul>
+<li>#{} 被解析为一条 SQL 的参数占位符 ?，通过调用 PreparedStatement 的 set 方法来赋值，可以防止 SQL 注入问题。</li>
+<li>${} 在动态 SQL 解析阶段将会进行字符串拼接，字符串不会加双引号。</li>
+</ul>
+<h2 id="2-xml映射文件中的常用标签">2. XML映射文件中的常用标签</h2>
+<ul>
+<li>&lt;select&gt;、&lt;insert&gt;、&lt;update&gt;、&lt;delete&gt;</li>
+<li>&lt;sql&gt;、&lt;include&gt; 用于 SQL 语句复用。</li>
+<li>&lt;if&gt; 用于动态 SQL。</li>
+<li>&lt;foreach&gt; 用于遍历集合。</li>
+</ul>
+<h2 id="3-xml标签中的属性">3. XML标签中的属性</h2>
+<ul>
+<li>useGeneratedKeys 和 keyProperty 用于将自增主键回填到 JavaBean。</li>
+<li>parameterType 用于声明参数类型，基本类型不用声明。</li>
+<li>resultType 用于声明结果集类型，基本类型不用声明。</li>
+</ul>
+<h2 id="4-dao-接口和-xml-映射文件的原理">4. Dao 接口和 XML 映射文件的原理</h2>
+<ul>
+<li>XML 文件中的 &lt;select&gt;、&lt;insert&gt;、&lt;update&gt;、&lt;delete&gt;都会解析成一个 MappedStatement 对象。</li>
+<li>Dao 接口的全限定名+方法名可以定位到唯一的 MappedStatement 对象，因此 Dao 接口的方法不能重载。</li>
+<li>MyBatis 运行时使用 JDK 动态代理为 Dao 接口生成代理对象，代理对象会拦截 Dao 接口的方法，转而执行 MappedStatement 对象的 SQL，并将结果放回。</li>
+</ul>
+<h2 id="5-mybatis-和-hibernate">5. Mybatis 和 Hibernate</h2>
+<blockquote>
+<p>对 JDBC 操作数据库的过程进行封装，使得开发者只关注 SQL。</p>
+</blockquote>
+<ul>
+<li>Mybatis 简单易学，程序员直接编写原生态 SQL。</li>
+<li>Hibernate 关系映射能力更强，数据库无关性好，方便移植。</li>
+</ul>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://kobeduu.github.io/post/spring-mvc-xue-xi-bi-ji/">
+                  <h3 class="post-title">
+                    Spring MVC 学习笔记
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+<script>
+    renderMathInElement(document.body,
+   {
+              delimiters: [
+                  {left: "$$", right: "$$", display: true},
+                  {left: "$", right: "$", display: false}
+              ]
+          }
+  );
+</script>
+
+
+
+
+  </body>
+</html>

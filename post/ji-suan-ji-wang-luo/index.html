@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>计算机网络学习笔记 | KobeDuu</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://kobeduu.github.io/favicon.ico?v=1624698162368">
+<link rel="stylesheet" href="https://kobeduu.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="OSI七层模型
+
+
+应用层
+定义了应用进程间的通信和交互的规则，包括HTTP、FTP、DNS、邮件SMTP等协议。
+表示层
+负责设备固有的数据格式与网络标准传输格式之间的转换。
+会话层
+负责建立和断开通信连接。
+传输层
+主要负责向两台主机进..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://kobeduu.github.io">
+        <img src="https://kobeduu.github.io/images/avatar.png?v=1624698162368" class="site-logo">
+        <h1 class="site-title">KobeDuu</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://kobeduu.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">计算机网络学习笔记</h2>
+            <div class="post-date">2020-11-08</div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="osi七层模型">OSI七层模型</h2>
+<figure data-type="image" tabindex="1"><img src="https://kobeduu.github.io/post-images/1606215585737.png" alt="" loading="lazy"></figure>
+<ul>
+<li><strong>应用层</strong><br>
+定义了应用进程间的通信和交互的规则，包括HTTP、FTP、DNS、邮件SMTP等协议。</li>
+<li><strong>表示层</strong><br>
+负责设备固有的数据格式与网络标准传输格式之间的转换。</li>
+<li><strong>会话层</strong><br>
+负责建立和断开通信连接。</li>
+<li><strong>传输层</strong><br>
+主要负责向两台主机进程之间的通信提供数据传输服务，包括TCP、UDP等协议。</li>
+<li><strong>网络层</strong><br>
+负责寻址和路由选择，包括IP、ARP等协议。</li>
+<li><strong>数据链路层</strong><br>
+负责物理层面上互连的节点之间的通信传输，比特流与数据帧之间的转换。</li>
+<li><strong>物理层</strong><br>
+比特流与电子信号之间的转换。</li>
+</ul>
+<h2 id="ip报文格式">IP报文格式</h2>
+<figure data-type="image" tabindex="2"><img src="https://kobeduu.github.io/post-images/1604824403990.gif" alt="" loading="lazy"></figure>
+<ul>
+<li><strong>版本</strong><br>
+IP协议的版本，IPv4，IPv6。</li>
+<li><strong>标识</strong><br>
+当数据报的长度超过网络的最大传输单元时就必须分片，每一片具有相同的标识，具有相同标识的分片报文会被重组成原来的数据报。</li>
+<li><strong>生存时间</strong><br>
+表示数据报在网络中的寿命，目的是防止无法交付的数据报无限制地在网络中传输，从而消耗网络资源。</li>
+<li><strong>协议</strong><br>
+表示该数据报文携带的数据所使用的协议类型，TCP的协议号为6，UDP的协议号为17。</li>
+</ul>
+<h2 id="tcp报文格式">TCP报文格式</h2>
+<figure data-type="image" tabindex="3"><img src="https://kobeduu.github.io/post-images/1604825320805.gif" alt="" loading="lazy"></figure>
+<ul>
+<li><strong>序列号</strong><br>
+它表示本报文段所发送数据的第一个字节的编号，TCP三次握手中，控制位SYN=1，表示初始序列号。</li>
+<li><strong>确认号</strong><br>
+它表示接收方期望收到发送方下一个报文段的第一个字节数据的编号。</li>
+<li><strong>保留字段</strong><br>
+为 TCP 将来的发展预留空间。</li>
+<li><strong>窗口大小</strong><br>
+表示当前接收端的接收窗口还有多少剩余空间，用于TCP的流量控制。</li>
+<li><strong>校验和</strong><br>
+用于确认传输的数据是否有损坏。</li>
+<li><strong>标志位</strong><br>
+PSH：告诉对方收到该报文段后是否立即把数据推送给上层。<br>
+RST：表示是否重置连接。<br>
+FIN：标记数据是否发送完毕。<br>
+SYN：在建立连接时用来同步序号。<br>
+ACK：表示确认号字段是否有效。</li>
+</ul>
+<h2 id="udp报文格式">UDP报文格式</h2>
+<figure data-type="image" tabindex="4"><img src="https://kobeduu.github.io/post-images/1604826262561.gif" alt="" loading="lazy"></figure>
+<ul>
+<li><strong>长度</strong><br>
+表示UDP数据报长度，包含UDP报文头和UDP数据长度。</li>
+<li><strong>校验值</strong><br>
+检验数据在传输过程中是否被损坏。</li>
+</ul>
+<h2 id="tcp和udp的区别">TCP和UDP的区别</h2>
+<ul>
+<li><strong>连接机制</strong><br>
+TCP面向连接，UDP不需要<br>
+-<strong>服务对象</strong><br>
+TCP是一对一的两点服务，UDP支持一对一、一对多、多对多，比如广播采用UDP。</li>
+<li><strong>可靠性</strong><br>
+TCP用序列号、确认应答、丢包重传、拥塞控制、流量控制等机制保证可靠，UDP是尽最大努力交付，不保证交付数据。</li>
+</ul>
+<h2 id="三次握手">三次握手</h2>
+<figure data-type="image" tabindex="5"><img src="https://kobeduu.github.io/post-images/1604979583624.jpg" alt="" loading="lazy"></figure>
+<ul>
+<li><strong>第一次握手</strong><br>
+客户端将标志位SYN置为1，随机产生一个值seq=J，并将该数据包发送给服务器端，客户端进入SYN_SENT状态，等待服务器端确认。</li>
+<li><strong>第二次握手</strong><br>
+服务器端收到数据包后由标志位SYN=1知道客户端请求建立连接，服务器端将标志位SYN和ACK都置为1，ack=J+1，随机产生一个值seq=K，并将该数据包发送给客户端以确认连接请求，服务器端进入SYN_RCVD状态。</li>
+<li><strong>第三次握手</strong><br>
+客户端收到确认后，检查ack是否为J+1，ACK是否为1，如果正确则将标志位ACK置为1，ack=K+1，并将该数据包发送给服务器端，服务器端检查ack是否为K+1，ACK是否为1，如果正确则连接建立成功，客户端和服务器端进入ESTABLISHED状态。</li>
+</ul>
+<p>两次握手无法防止历史失效连接的建立，会造成双方资源的浪费，也无法可靠的同步双方序列号。</p>
+<h2 id="四次挥手">四次挥手</h2>
+<p><img src="https://kobeduu.github.io/post-images/1604979745566.jpg" alt="" loading="lazy"><br>
+TIME_WAIT状态存在的原因：</p>
+<ol>
+<li>确保服务端收到最后一个确认报文，可靠地实现TCP全双工连接的终止。</li>
+<li>让本连接产生的所有报文从网络中消失，使得新连接中不会出现旧连接中的报文。</li>
+</ol>
+<h2 id="流量控制">流量控制</h2>
+<p><img src="https://kobeduu.github.io/post-images/1604993620860.jpg" alt="" loading="lazy"><br>
+流量控制是为了控制发送方发送速率，保证接收方来得及接收。通过TCP报文中窗口大小字段来控制，当窗口大小为0后，隔一段时间就会发送窗口探测报文。</p>
+<h2 id="拥塞控制">拥塞控制</h2>
+<p><img src="https://kobeduu.github.io/post-images/1604993697288.jpg" alt="" loading="lazy"><br>
+拥塞控制算法：</p>
+<ul>
+<li><strong>慢开始</strong><br>
+刚开始发送方能够发送的报文段数量呈指数增长。</li>
+<li><strong>拥塞避免</strong><br>
+当拥塞窗口（cwnd）到达慢开始门限（ssthresh）后呈线性增长。</li>
+<li><strong>快重传</strong><br>
+当发送端收到3个连续的重复确认，就立即重传。</li>
+<li><strong>快恢复</strong><br>
+当丢失个别报文段时，执行快恢复，令 ssthresh = cwnd / 2 ，cwnd = ssthresh，注意此时直接进入拥塞避免。</li>
+</ul>
+<h2 id="tcp粘包">TCP粘包</h2>
+<p>发送的数据小于TCP发送缓冲区的大小，TCP将多次写入缓冲区的数据一次发送出去；接收端的应用层没有及时读取接收缓冲区中的数据，由于TCP是字节流的传输方式，TCP报文只有报文头大小的字段，所以将发生粘包。</p>
+<ul>
+<li><strong>如何避免粘包</strong></li>
+</ul>
+<ol>
+<li>在报文首部添加包的长度。</li>
+<li>在每个包的末尾加上特殊字符，用以区分连续的两个包。</li>
+</ol>
+<h2 id="http">HTTP</h2>
+<figure data-type="image" tabindex="6"><img src="https://kobeduu.github.io/post-images/1605016881869.jpg" alt="" loading="lazy"></figure>
+<ul>
+<li><strong>HTTP1.1</strong></li>
+</ul>
+<ol>
+<li>长连接：在请求头通过Connection:keep-alive来开启，减少TCP频繁连接和断开的额外开销。</li>
+<li>管道机制：同一个TCP连接中，客户端可以同时发送多个请求，但服务端是依次处理的，若前面的响应慢，容易造成队头阻塞。</li>
+</ol>
+<ul>
+<li><strong>HTTP2</strong></li>
+</ul>
+<ol>
+<li>多路复用：一个连接中并发多个请求或回应，解决了队头阻塞问题。</li>
+<li>头部压缩：客户端和服务端同时维护一张头信息表，只需要发送索引号就好了。</li>
+<li>服务端推送：服务端能主动的发送消息。</li>
+<li>缺点：一旦丢包，所有HTTP请求都必须等待这个包重传。</li>
+</ol>
+<ul>
+<li><strong>HTTPS</strong></li>
+</ul>
+<ol>
+<li>混合加密：保证信息的机密性。</li>
+<li>摘要算法：保证信息的完整性。</li>
+<li>数字证书：保证通信双方身份及公钥的信任度。</li>
+</ol>
+<h2 id="常见状态码">常见状态码</h2>
+<ul>
+<li><strong>2xx</strong><br>
+200表示请求被正常处理。</li>
+<li><strong>3xx</strong><br>
+301表示永久性重定向，302表示临时重定向，304表示浏览器缓存未过期。</li>
+<li><strong>4xx</strong><br>
+403表示请求资源禁止访问，404无法找到请求资源。</li>
+<li><strong>5xx</strong><br>
+500表示服务器内部错误，503表示服务器繁忙。</li>
+</ul>
+<h2 id="ssltls协议四次握手">SSL/TLS协议四次握手</h2>
+<ul>
+<li><strong>客户端发出请求</strong><br>
+给出支持的协议版本、支持的密码套件（如签名算法、对称加密算法、摘要算法）以及一个客户端生成的随机数（Client random）。</li>
+<li><strong>服务端回应</strong><br>
+确认双方通信的协议版本、加密方法，并给出服务器证书以及一个服务器生成的随机数（Server random）。</li>
+<li><strong>客户端回应</strong><br>
+客户端通过浏览器或操作系统中嵌入的CA公钥确认证书是否有效，取出证书中的公钥，然后生成一个新的随机数（Premaster secret），使用公钥加密这个随机数，发送给服务端。</li>
+<li><strong>服务端回应</strong><br>
+服务端使用自己的私钥解密客户端发来的随机数（Premaster secret），客户端和服务端根据约定的加密方法，使用三个随机数，生成<strong>会话秘钥</strong>。</li>
+</ul>
+<h2 id="ipv4分类">IPv4分类</h2>
+<p><img src="https://kobeduu.github.io/post-images/1606207532320.png" alt="" loading="lazy"><br>
+以第一个0所在的位置区分类别，主机号全0代表网络号，全1代表广播地址。</p>
+<ul>
+<li><strong>IP分类的优点</strong><br>
+简单明了，快速识别网络号和主机号，基于网络地址选路简单。</li>
+<li><strong>IP分类的缺点</strong><br>
+同一网络下没有地址层次，缺少地址的灵活性，主机数量的过多过少不能很好地与现实匹配。</li>
+<li><strong>无分类地址</strong><br>
+解决了IP分类的缺点，将IP地址和子网掩码做与运算，得到网络号和主机号，做了子网划分后，主机号分为子网网络地址和子网主机地址。</li>
+</ul>
+<h2 id="ipv6与ipv4">IPv6与IPv4</h2>
+<figure data-type="image" tabindex="7"><img src="https://kobeduu.github.io/post-images/1606208897971.png" alt="" loading="lazy"></figure>
+<ul>
+<li><strong>IPv6可分配地址更多</strong><br>
+IPv4的地址是32位，IPv6是128位。</li>
+<li><strong>取消了首部校验和字段</strong><br>
+简化了首部结构，减轻了路由器负荷，大大提高了传输的性能。</li>
+<li><strong>取消了分片重组相关字段</strong><br>
+IPv6不允许在中间路由器进行分片与重组，大大提高了路由器转发的速度。</li>
+<li><strong>取消可选字段</strong><br>
+这个字段的作用被 [下一个首部] 代替，使得IPv6的首部为固定的40字节。</li>
+</ul>
+<h2 id="ip地址和mac地址">IP地址和MAC地址</h2>
+<p>MAC地址的作用是实现「直连」的两个设备之间通信，而IP地址则负责在「没有直连」的两个网络之间进行通信传输。</p>
+<h2 id="路由控制和arp协议">路由控制和ARP协议</h2>
+<p>路由控制表中记录着目标网络地址与下一步应该发送到的路由器的IP地址，主机通过广播发送ARP请求来得到下一跳的MAC地址。</p>
+<h2 id="icmp协议">ICMP协议</h2>
+<p>互联网控制报文协议，主要功能包括：确认 IP 包是否成功送达目标地址、报告发送过程中 IP 包被废弃的原因和改善网络设置等。</p>
+<h2 id="ping的工作原理">ping的工作原理</h2>
+<p>源主机首先构建一个ICMP（互联网控制报文协议）回送请求消息，它会在报文数据部分插入发送时间以计算往返时间，然后交给网络层发送出去，目标主机收到后会构建一个ICMP回送响应消息；源主机如果没有按时接到ICMP应答包，则说明目标主机不可达。</p>
+<h2 id="cookie和session的区别">Cookie和Session的区别</h2>
+<ul>
+<li><strong>Cookie</strong><br>
+数据由服务器发送至浏览器保存，浏览器下次访问时会携带上数据，它以键值对的形式存储少量字符串数据且不安全。</li>
+<li><strong>Session</strong><br>
+数据保存在服务器，但服务器依然会发送记录有sessionID的cookie至浏览器，数据存储安全但增加了服务器的内存压力。</li>
+</ul>
+<h2 id="syn-flood攻击">SYN Flood攻击</h2>
+<p>服务端收到大量的连接请求后一直处于SYN_RCVD状态，导致服务器资源耗尽无法响应正常连接请求。</p>
+<ul>
+<li><strong>增大半连接队列</strong></li>
+<li><strong>开启tcp_syncookies功能</strong></li>
+<li><strong>减少SYN+ACK重传次数</strong></li>
+</ul>
+<h2 id="输入url后的故事">输入URL后的故事</h2>
+<figure data-type="image" tabindex="8"><img src="https://kobeduu.github.io/post-images/1606278700084.png" alt="" loading="lazy"></figure>
+<ul>
+<li><strong>浏览器解析URL生成HTTP请求报文，委托操作系统发送</strong></li>
+<li><strong>通过DNS域名系统查询服务器域名对应的IP地址</strong></li>
+<li><strong>协议栈根据协议类型进行数据封装，TCP头部、IP头部、MAC头部</strong></li>
+<li><strong>网卡将数字信息转换为电信号通过网线发送出去</strong></li>
+<li><strong>交换机将电信号转换为数字信息，通过FCS校验错误，在MAC地址表里找到目的MAC地址对应的网线端口号</strong></li>
+<li><strong>路由器收到数据包后，去掉MAC头部，通过路由表查询下一跳的IP地址和输出端口，通过ARP协议查询下一跳的MAC地址</strong></li>
+</ul>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://kobeduu.github.io/post/cprimer-xue-xi-bi-ji/">
+                  <h3 class="post-title">
+                    C++Primer学习笔记
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+<script>
+    renderMathInElement(document.body,
+   {
+              delimiters: [
+                  {left: "$$", right: "$$", display: true},
+                  {left: "$", right: "$", display: false}
+              ]
+          }
+  );
+</script>
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>C++Primer学习笔记 | KobeDuu</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://kobeduu.github.io/favicon.ico?v=1624698162368">
+<link rel="stylesheet" href="https://kobeduu.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="引用和指针的区别
+
+指针：指向一块内存区域，可以更改指向的位置，可以为空；能寻址，也才有指针的指针。
+引用：变量的别名，定义时必须初始化，不可以更改绑定的对象，寻址结果是绑定对象的地址。
+
+引用的底层实现就是常量指针
+int a = 5;
+..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://kobeduu.github.io">
+        <img src="https://kobeduu.github.io/images/avatar.png?v=1624698162368" class="site-logo">
+        <h1 class="site-title">KobeDuu</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://kobeduu.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">C++Primer学习笔记</h2>
+            <div class="post-date">2020-11-02</div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="引用和指针的区别">引用和指针的区别</h2>
+<ul>
+<li><strong>指针</strong>：指向一块内存区域，可以更改指向的位置，可以为空；能寻址，也才有指针的指针。</li>
+<li><strong>引用</strong>：变量的别名，定义时必须初始化，不可以更改绑定的对象，寻址结果是绑定对象的地址。</li>
+</ul>
+<p>引用的底层实现就是常量指针</p>
+<pre><code class="language-c++">int a = 5;
+int &amp;r = a;          //对 a 的引用
+int *const p = &amp;a;   //不能修改指针p指向的位置
+const int *p = &amp;a;   //不能通过指针p修改 a 的值          
+int *&amp;rr = &amp;p        //对指针的引用，引用不是对象，不存在指向引用的指针
+</code></pre>
+<h2 id="const和constexpr">const和constexpr</h2>
+<p>const 保证变量定义后不被改变，可以在运行时动态定义，constexpr 在编译期就确认了，只能初始化为常量表达式。</p>
+<h2 id="struct和class的区别">struct和class的区别</h2>
+<p>对于成员访问权限以及继承方式，class默认是private，而struct默认是public；class还可以用于表示模板类型，struct则不行。</p>
+<h2 id="new和malloc的区别">new和malloc的区别</h2>
+<ul>
+<li><strong>参数</strong><br>
+new自行计算所需内存大小，malloc需要显式地指出所需内存大小。</li>
+<li><strong>返回类型</strong><br>
+new返回对象类型指针，malloc返回void*指针，需要强转为我们需要的指针类型。</li>
+<li><strong>分配失败</strong><br>
+内存分配失败时，new会抛出bac_alloc异常，malloc返回NULL。</li>
+<li><strong>属性</strong><br>
+new是C++运算符，会调用对象的构造函数，malloc是库函数。</li>
+</ul>
+<h2 id="delete和delete-的区别">delete和delete []的区别</h2>
+<p>当通过new申请了一个对象数组时，delete和delete[]都能释放对象数组的内存空间，但delete[]会调用所有对象的析构函数，而delete只会调用对象数组第一个对象的析构函数，这可能会导致线程、端口等系统资源不能及时释放。</p>
+<h2 id="程序编译过程">程序编译过程</h2>
+<figure data-type="image" tabindex="1"><img src="https://kobeduu.github.io/post-images/1604326777629.png" alt="" loading="lazy"></figure>
+<ul>
+<li><strong>预处理</strong><br>
+处理以#开头的预处理命令，删除注释等，hello.c -&gt; hello.i。</li>
+<li><strong>编译</strong><br>
+对预处理完的文件进行词法分析，语法分析，语义分析及优化后生成相应的汇编代码，hello.i -&gt; hello.s。</li>
+<li><strong>汇编</strong><br>
+将汇编代码翻译成机器语言指令，hello.s -&gt; hello.o。</li>
+<li><strong>链接</strong><br>
+链接程序运行时需要的一大堆目标文件，以及所依赖的其它库文件来生成可执行文件。<br>
+静态链接：在编译阶段把静态库拷贝到可执行文件中，这样可执行文件会比较大。<br>
+动态链接：链接阶段只加入一些描述信息，程序执行时再从系统中把相应动态库加载到内存中。</li>
+</ul>
+<h2 id="内存对齐">内存对齐</h2>
+<ul>
+<li>
+<p><strong>为什么要内存对齐</strong><br>
+计算机以块的方式读取内存，块的大小可以是2，4，8，16字节，如果不选择内存对齐，当一个数据跨度两个块时，CPU就需要读取2次，所以就需要字节对齐来提高系统性能。</p>
+</li>
+<li>
+<p><strong>内存对齐准则</strong><br>
+<strong>对齐单位</strong>：是给定值 #pragma pack(n) 和 结构体中最大数据类型 中较小的那个。<br>
+(1) 结构体第一个成员的偏移量（offset）为0，以后每个成员相对于结构体首地址的 offset 都是<strong>该成员大小与对齐单位</strong>中较小那个的整数倍，如有需要编译器会在成员之间自动填充字节。<br>
+(2) 结构体的总大小为<strong>对齐单位</strong>的整数倍。</p>
+</li>
+</ul>
+<pre><code class="language-c++">#pragma pack(n)
+struct node{
+    char a;
+    short b;
+    char c;
+    int d;
+    char e;
+};
+</code></pre>
+<p>n = 4，sizeof(node) = 16；（a◻bb c◻◻◻ dddd e◻◻◻）<br>
+n = 1，sizeof(node) = 9。（abbcdddde）</p>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://kobeduu.github.io/post/cao-zuo-xi-tong/">
+                  <h3 class="post-title">
+                    操作系统学习笔记
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/contrib/auto-render.min.js" integrity="sha384-aGfk5kvhIq5x1x5YdvCp4upKZYnA8ckafviDpmWEKp4afOZEqOli7gqSnh8I6enH" crossorigin="anonymous"></script>
+<script>
+    renderMathInElement(document.body,
+   {
+              delimiters: [
+                  {left: "$$", right: "$$", display: true},
+                  {left: "$", right: "$", display: false}
+              ]
+          }
+  );
+</script>
+
+
+
+
+  </body>
+</html>
